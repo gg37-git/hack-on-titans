@@ -89,34 +89,30 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-10 md:gap-16 pt-2 animate-in fade-in duration-500">
         
-        {/* Hero Section */}
-        <div className="relative group w-full">
-          <div className="bg-gradient-to-br from-[#1e293b] to-[#0f172a] rounded-[32px] md:rounded-[48px] px-8 py-12 md:px-16 md:py-20 text-white overflow-hidden shadow-2xl relative">
-            <div className="relative z-10 max-w-3xl flex flex-col gap-5 w-full">
-               <p className="text-primary-400 font-black tracking-[0.2em] uppercase text-[10px] md:text-xs">
-                 {greeting()},
+        {/* Streamlined Hero Banner (Upscaled) */}
+        <div className="w-full">
+          <div className="bg-gradient-to-r from-primary-700 to-primary-500 rounded-[32px] md:rounded-[40px] px-8 py-10 md:px-12 md:py-14 text-white overflow-hidden shadow-xl shadow-primary-900/10 relative flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="relative z-10 flex flex-col gap-3">
+               <p className="text-primary-100 font-black tracking-[0.25em] uppercase text-[11px] md:text-xs">
+                 {greeting()}
                </p>
-               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight text-white mb-2">
-                  Hi, {user?.fullName?.split(' ')[0] || 'Welcome'}!<br className="hidden sm:block" />
-                  <span className="text-primary-500"> Ready</span> for your check?
+               <h1 className="text-4xl md:text-5xl lg:text-5xl font-black leading-tight tracking-tight text-white max-w-xl">
+                  Hello, {user?.fullName?.split(' ')[0] || 'User'}! Ready for a checkup?
                </h1>
-               <p className="text-slate-400 text-sm md:text-base lg:text-lg max-w-lg leading-relaxed font-medium">
-                  Your AI health companion is active and monitored. Get personalized guidance in seconds.
-               </p>
-               <div className="pt-4 flex flex-wrap gap-4">
-                  <button onClick={() => router.push('/symptom-checker')} className="bg-primary-700 hover:bg-primary-600 text-white px-8 py-4 rounded-3xl font-bold flex items-center gap-3 transition-all transform hover:scale-105 shadow-xl shadow-primary-700/20">
-                     Start Symptom Check <ChevronRight size={18} />
-                  </button>
-                  <button onClick={() => router.push('/ai-doc')} className="bg-white/10 hover:bg-white/20 backdrop-blur-md px-8 py-4 rounded-3xl font-bold flex items-center gap-3 transition-all border border-white/20">
-                     Chat with AI Doc
-                  </button>
-               </div>
+            </div>
+            
+            <div className="relative z-10 flex gap-4 shrink-0">
+               <button onClick={() => router.push('/symptom-checker')} className="bg-white text-primary-700 px-8 py-4 rounded-[20px] font-black text-sm md:text-base flex items-center gap-2 hover:bg-neutral-50 transition-all shadow-lg active:scale-95">
+                  Initiate Scan <ChevronRight size={18} />
+               </button>
+               <button onClick={() => router.push('/ai-doc')} className="bg-transparent text-white border-2 border-white/20 hover:bg-white/10 px-8 py-4 rounded-[20px] font-black text-sm md:text-base transition-all focus:ring-2">
+                  Connect AI
+               </button>
             </div>
             
             {/* Visual Decor */}
-            <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-primary-700/10 blur-[120px] rounded-full translate-x-1/2"></div>
-            <div className="absolute top-1/2 right-4 md:right-16 -translate-y-1/2 opacity-[0.05] lg:opacity-20 pointer-events-none">
-               <Bot size={250} className="text-primary-500" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none translate-x-[20%]">
+               <Heart size={200} className="text-white" fill="currentColor" />
             </div>
           </div>
         </div>
@@ -222,20 +218,23 @@ export default function DashboardPage() {
               <div className="space-y-12">
                  {serviceGroups.map((group) => (
                     <div key={group.title} className="space-y-6">
-                       <h2 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em] pl-2">{group.title}</h2>
-                       <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6">
+                       <h2 className="text-base font-black text-slate-800 tracking-[-0.02em] pl-2 border-l-4 border-primary-500 rounded-sm">{group.title}</h2>
+                       <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
                           {group.items.map((item) => (
                             <button
                               key={item.label}
                               onClick={() => router.push(item.href)}
-                              className={`${item.color} border rounded-[32px] p-6 text-left transition-all hover:scale-[1.02] hover:shadow-xl group flex flex-col items-start justify-between min-h-[140px]`}
+                              className={`${item.color} border-2 rounded-[40px] p-6 md:p-8 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-${item.color.split('-')[1]}-500/20 group flex flex-col items-start justify-between min-h-[160px] md:min-h-[180px] relative overflow-hidden`}
                             >
-                              <div className="group-hover:scale-110 transition-transform bg-white/50 p-3 rounded-2xl shadow-sm">
+                              <div className="absolute -right-6 -top-6 w-24 h-24 bg-white/40 blur-2xl rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+                              <div className="relative z-10 group-hover:scale-110 transition-transform duration-500 bg-white shadow-sm p-4 rounded-3xl mb-4">
                                 {item.icon}
                               </div>
-                              <div className="w-full flex items-end justify-between">
-                                <p className="font-black text-xs lg:text-sm leading-tight uppercase tracking-tight">{item.label}</p>
-                                <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                              <div className="w-full flex items-center justify-between relative z-10">
+                                <p className="font-black text-sm md:text-base leading-tight tracking-tight">{item.label}</p>
+                                <div className="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300 backdrop-blur-md">
+                                  <ChevronRight size={16} />
+                                </div>
                               </div>
                             </button>
                           ))}
@@ -247,19 +246,7 @@ export default function DashboardPage() {
            </div>
         </div>
 
-        {/* Info Footer */}
-        <div className="bg-slate-100 rounded-[48px] p-10 flex flex-col md:flex-row items-center justify-between gap-8 border border-slate-200">
-           <div className="flex items-center gap-6">
-              <div className="w-20 h-20 bg-white rounded-[32px] flex items-center justify-center text-4xl shadow-sm">💡</div>
-              <div>
-                <h4 className="font-black text-xl text-slate-900">Health Tip of the Day</h4>
-                <p className="text-slate-500 max-w-lg">Include fiber-rich foods like whole grains, fruits, and vegetables for better digestion and stable energy levels throughout the day.</p>
-              </div>
-           </div>
-           <button onClick={() => router.push('/diseases')} className="bg-slate-900 text-white px-8 py-4 rounded-3xl font-bold text-sm whitespace-nowrap hover:bg-primary-700 transition-all shadow-xl shadow-slate-900/10">
-              Browse Health Library
-           </button>
-        </div>
+
 
     </div>
   );

@@ -40,10 +40,10 @@ const menuGroups = [
     ]
   },
   {
-    title: 'Premium Features',
+    title: 'Advanced Features (Now Free)',
     items: [
-      { icon: <Activity size={20} />, label: 'Risk Analytics', href: '/analytics', isPremium: true },
-      { icon: <Watch size={20} />, label: 'Wearable Mode', href: '/wearable', isPremium: true },
+      { icon: <Activity size={20} />, label: 'Risk Analytics', href: '/analytics', isPremium: false },
+      { icon: <Watch size={20} />, label: 'Wearable Mode', href: '/wearable', isPremium: false },
     ]
   },
   {
@@ -53,14 +53,7 @@ const menuGroups = [
       { icon: <UserCircle size={20} />, label: 'Profile Setup', href: '/profile-setup', isPremium: false },
     ]
   },
-  {
-    title: 'Help & Legal',
-    items: [
-      { icon: <ShieldCheck size={20} />, label: 'Privacy Policy', href: '/privacy' },
-      { icon: <BookOpen size={20} />, label: 'Terms of Service', href: '/terms' },
-      { icon: <Heart size={20} />, label: 'Contact Support', href: 'mailto:support@healthcare-ai.local' },
-    ]
-  }
+
 ];
 
 export default function Sidebar() {
