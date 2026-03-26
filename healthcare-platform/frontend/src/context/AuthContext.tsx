@@ -9,7 +9,6 @@ interface User {
   email: string;
   fullName: string;
   profileCompleted: boolean;
-  isPremium: boolean;
 }
 
 interface AuthContextType {

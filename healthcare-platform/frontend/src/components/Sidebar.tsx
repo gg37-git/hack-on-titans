@@ -29,31 +29,25 @@ const menuGroups = [
       { icon: <Bot size={20} />, label: 'AI Doctor', href: '/ai-doc' },
       { icon: <Apple size={20} />, label: 'Nutrition Coach', href: '/nutrition' },
       { icon: <Brain size={20} />, label: 'Mental Health', href: '/mental-health' },
+      { icon: <Activity size={20} />, label: 'Risk Analytics', href: '/analytics' },
       { icon: <Activity className="text-pink-600" size={20} />, label: 'Fertility Tracking', href: '/fertility' },
     ]
   },
   {
     title: 'Insights & Tools',
     items: [
-      { icon: <Bell size={20} />, label: 'Medical Alerts', href: '/alerts', isPremium: false },
-      { icon: <BookOpen size={20} />, label: 'Disease Library', href: '/diseases', isPremium: false },
-    ]
-  },
-  {
-    title: 'Advanced Features (Now Free)',
-    items: [
-      { icon: <Activity size={20} />, label: 'Risk Analytics', href: '/analytics', isPremium: false },
-      { icon: <Watch size={20} />, label: 'Wearable Mode', href: '/wearable', isPremium: false },
+      { icon: <Watch size={20} />, label: 'Wearable Mode', href: '/wearable' },
+      { icon: <Bell size={20} />, label: 'Medical Alerts', href: '/alerts' },
+      { icon: <BookOpen size={20} />, label: 'Disease Library', href: '/diseases' },
     ]
   },
   {
     title: 'Device & Account',
     items: [
-      { icon: <LayoutDashboard size={20} />, label: 'Dashboard', href: '/dashboard', isPremium: false },
-      { icon: <UserCircle size={20} />, label: 'Profile Setup', href: '/profile-setup', isPremium: false },
+      { icon: <LayoutDashboard size={20} />, label: 'Dashboard', href: '/dashboard' },
+      { icon: <UserCircle size={20} />, label: 'Profile Setup', href: '/profile-setup' },
     ]
   },
-
 ];
 
 export default function Sidebar() {
@@ -99,49 +93,27 @@ export default function Sidebar() {
           <div key={group.title} className="flex flex-col gap-3">
             <h3 className="text-[10px] uppercase font-black text-neutral-400 tracking-widest pl-3">{t(group.title)}</h3>
             <div className="flex flex-col gap-1">
-              {group.items.map((item: any) => {
-                const isLocked = item.isPremium && !user?.isPremium;
-                return (
-                  <Link
-                    key={item.label}
-                    href={isLocked ? '/checkout' : item.href}
-                    className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold transition-all group ${
-                      pathname === item.href && !isLocked
-                      ? 'bg-primary-700 text-white shadow-md shadow-primary-700/20' 
-                      : isLocked ? 'bg-amber-50/50 text-amber-700/70 hover:bg-amber-100 hover:text-amber-900 border border-amber-100/50' : 'text-neutral-500 hover:bg-neutral-50 hover:text-primary-700'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className={`${pathname === item.href && !isLocked ? 'text-white' : isLocked ? 'text-amber-500' : 'text-neutral-400 group-hover:text-primary-700'} transition-colors`}>
-                        {item.icon}
-                      </span>
-                      {t(item.label)}
-                    </div>
-                    {isLocked && <ShieldCheck size={16} className="text-amber-500" />}
-                  </Link>
-                );
-              })}
+              {group.items.map((item: any) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold transition-all group ${
+                    pathname === item.href
+                    ? 'bg-primary-700 text-white shadow-md shadow-primary-700/20' 
+                    : 'text-neutral-500 hover:bg-neutral-50 hover:text-primary-700'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`${pathname === item.href ? 'text-white' : 'text-neutral-400 group-hover:text-primary-700'} transition-colors`}>
+                      {item.icon}
+                    </span>
+                    {t(item.label)}
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         ))}
-        
-        {/* Permanent Premium Wellness Upgrade Banner - Hardcoded to ALWAYS be visible globally */}
-        <div className="mt-8 bg-black text-white rounded-3xl p-6 flex flex-col gap-4 shadow-2xl relative overflow-hidden group">
-           <div className="relative z-10 flex flex-col gap-3">
-              <div className="flex items-center gap-2">
-                 <ShieldCheck className="text-primary-400" size={18} />
-                 <span className="text-[10px] font-black uppercase tracking-widest text-primary-400">{t('Premium Wellness')}</span>
-              </div>
-              <p className="text-xs font-bold leading-relaxed">{t('Get AI Risk Scores & Indian Diet Plans.')}</p>
-              <button 
-                onClick={handleSidebarUpgrade}
-                className="w-full h-10 flex items-center justify-center bg-white text-black rounded-xl text-[11px] font-black uppercase tracking-wider hover:bg-primary-500 hover:text-white transition-all cursor-pointer relative z-20"
-              >
-                {t('Upgrade Now')}
-              </button>
-           </div>
-           <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-primary-700/20 rounded-full blur-2xl group-hover:bg-primary-500/30 transition-all duration-1000 pointer-events-none"></div>
-        </div>
       </nav>
 
       <div className="p-6 border-t border-neutral-50 bg-neutral-50/50">

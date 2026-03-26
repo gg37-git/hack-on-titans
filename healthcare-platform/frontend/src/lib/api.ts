@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Fallback to strict local network routing, but keep tunnel header active in case of proxy use
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+const API_BASE_URL = 'https://curalink-api-final.loca.lt/api';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,

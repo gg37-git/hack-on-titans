@@ -32,10 +32,7 @@ const translations: Translations = {
     'Privacy Policy': 'Privacy Policy',
     'Terms of Service': 'Terms of Service',
     'Contact Support': 'Contact Support',
-    'Logout': 'Logout',
-    'Premium Wellness': 'Premium Wellness',
-    'Get AI Risk Scores & Indian Diet Plans.': 'Get AI Risk Scores & Indian Diet Plans.',
-    'Upgrade Now': 'Upgrade Now'
+    'Logout': 'Logout'
   },
   hi: {
     'Clinical Care': 'क्लिनिकल देखभाल',
@@ -60,10 +57,7 @@ const translations: Translations = {
     'Privacy Policy': 'गोपनीयता नीति',
     'Terms of Service': 'सेवा की शर्तें',
     'Contact Support': 'संपर्क सहायता',
-    'Logout': 'लॉग आउट',
-    'Premium Wellness': 'प्रीमियम वेलनेस',
-    'Get AI Risk Scores & Indian Diet Plans.': 'एआई रिस्क स्कोर और भारतीय डाइट प्लान पाएं।',
-    'Upgrade Now': 'अभी अपग्रेड करें'
+    'Logout': 'लॉग आउट'
   },
   ta: {
     'Clinical Care': 'மருத்துவ பராமரிப்பு',
@@ -82,16 +76,13 @@ const translations: Translations = {
     'Disease Library': 'நோய் நூலகம்',
     'Device & Account': 'சாதனம் மற்றும் கணக்கு',
     'Dashboard': 'டாஷ்போர்டு',
-    'Profile Setup': 'சுயவிவர அமைப்பு',
+    'Profile Setup': 'சுயవివర அமைப்பு',
     'Wearable Mode': 'அணியக்கூடிய பயன்முறை',
     'Help & Legal': 'உதவி மற்றும் சட்டம்',
     'Privacy Policy': 'தனியுரிமைக் கொள்கை',
     'Terms of Service': 'சேவை விதிமுறைகள்',
     'Contact Support': 'ஆதரவைத் தொடர்பு கொள்ளவும்',
-    'Logout': 'வெளியேறு',
-    'Premium Wellness': 'பிரீமியம் ஆரோக்கியம்',
-    'Get AI Risk Scores & Indian Diet Plans.': 'AI ரிஸ்க் ஸ்கோர்கள் & இந்திய உணவுத் திட்டங்களைப் பெறுங்கள்.',
-    'Upgrade Now': 'இப்போதே மேம்படுத்துங்கள்'
+    'Logout': 'வெளியேறு'
   },
   kn: {
     'Clinical Care': 'ವೈದ್ಯಕೀಯ ಆರೈಕೆ',
@@ -116,10 +107,7 @@ const translations: Translations = {
     'Privacy Policy': 'ಗೌಪ್ಯತಾ ನೀತಿ',
     'Terms of Service': 'ಸೇವಾ ನಿಯಮಗಳು',
     'Contact Support': 'ಬೆಂಬಲವನ್ನು ಸಂಪರ್ಕಿಸಿ',
-    'Logout': 'ಲಾಗ್ ಔಟ್',
-    'Premium Wellness': 'ಪ್ರೀಮಿಯಂ ಸ್ವಾಸ್ಥ್ಯ',
-    'Get AI Risk Scores & Indian Diet Plans.': 'AI ಅಪಾಯದ ಅಂಕಗಳು ಮತ್ತು ಭಾರತೀಯ ಆಹಾರ ಯೋಜನೆಗಳನ್ನು ಪಡೆಯಿರಿ.',
-    'Upgrade Now': 'ಈಗ ಅಪ್‌ಗ್ರೇಡ್ ಮಾಡಿ'
+    'Logout': 'ಲಾಗ್ ಔಟ್'
   },
   te: {
     'Clinical Care': 'క్లినికల్ కేర్',
@@ -144,10 +132,7 @@ const translations: Translations = {
     'Privacy Policy': 'గోప్యతా విధానం',
     'Terms of Service': 'సేవా నిబంధనలు',
     'Contact Support': 'మద్దతును సంప్రదించండి',
-    'Logout': 'లాగ్ అవుట్',
-    'Premium Wellness': 'ప్రీమియం వెల్నెస్',
-    'Get AI Risk Scores & Indian Diet Plans.': 'AI రిస్క్ స్కోర్‌లు & భారతీయ డైట్ ప్లాన్‌లను పొందండి.',
-    'Upgrade Now': 'ఇప్పుడే అప్‌గ్రేడ్ చేయండి'
+    'Logout': 'లాగ్ అవుట్'
   }
 };
 
