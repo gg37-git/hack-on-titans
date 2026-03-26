@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-500: #3B82F6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1E40AF;
+  --color-primary-800: #1e3a8a;
+  --color-primary-900: #001f3f;
+
+  --color-neutral-50: #FFFFFF;
+  --color-neutral-100: #F9FAFB;
+  --color-neutral-200: #F3F4F6;
+  --color-neutral-300: #E5E7EB;
+  --color-neutral-400: #9CA3AF;
+  --color-neutral-500: #6B7280;
+  --color-neutral-600: #4B5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1F2937;
+  --color-neutral-900: #111827;
+
+  --color-success-500: #059669;
+  --color-warning-500: #D97706;
+  --color-danger-500: #DC2626;
+
+  --font-sans: Inter, system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #ffffff;
+  color: #111827;
+  font-family: Inter, system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded bg-primary-700 text-white font-semibold hover:bg-primary-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded bg-neutral-200 text-neutral-900 font-semibold hover:bg-neutral-300 transition-colors;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 rounded border border-neutral-300 focus:border-primary-700 focus:ring-1 focus:ring-primary-700 transition-all outline-none;
+  }
+
+  .card {
+    @apply bg-white rounded-lg border border-neutral-300 p-6 shadow-sm;
+  }
+}
