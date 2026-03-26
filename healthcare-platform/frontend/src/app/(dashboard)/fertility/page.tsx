@@ -26,14 +26,17 @@ export default function FertilityTracking() {
   return (
     <div className="min-h-screen bg-[#f8fafc] p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        <div>
-          <h1 className="text-3xl font-black text-neutral-900 flex items-center gap-3">
-             <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600">
-               <Droplet size={24} className="fill-pink-600" />
-             </div>
-             {t('Cycle & Fertility Tracking')}
-          </h1>
-          <p className="text-neutral-500 mt-2">{t('Log your menstrual cycle to calculate your upcoming periods and fertile windows.')}</p>
+        {/* Header (Centered) */}
+        <div className="flex flex-col items-center text-center gap-6 border-b border-pink-100 pb-12">
+          <div className="w-16 h-16 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600 shadow-sm border border-pink-100">
+             <Droplet size={32} className="fill-pink-600" />
+          </div>
+          <div className="space-y-3">
+            <h1 className="text-4xl md:text-5xl font-black text-neutral-900 tracking-tight">
+              {t('Cycle & Fertility Tracking')}
+            </h1>
+            <p className="text-neutral-600 font-medium text-lg max-w-2xl mx-auto">{t('Log your menstrual cycle for precise AI-powered health predictions and window analysis.')}</p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

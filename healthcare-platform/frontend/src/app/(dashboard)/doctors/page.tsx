@@ -143,12 +143,12 @@ export default function DoctorsPage() {
       <div className="max-w-7xl mx-auto space-y-16 animate-in fade-in duration-500">
         
         {/* Header & Hero Stats */}
-        <div className="flex flex-col lg:flex-row justify-between gap-6">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight">Healthcare Directory</h1>
-            <p className="text-slate-500 font-medium text-lg">Instant access to certified specialists and emergency networks across India.</p>
+        <div className="flex flex-col items-center text-center gap-10">
+          <div className="space-y-3">
+            <h1 className="text-5xl font-black text-slate-900 tracking-tight">Healthcare Directory</h1>
+            <p className="text-slate-600 font-medium text-lg max-w-3xl">Instant access to certified specialists, medical centers, and emergency clinical networks across India.</p>
           </div>
-          <div className="flex bg-white rounded-3xl p-2 shadow-sm border border-slate-200 w-fit self-start shrink-0">
+          <div className="flex bg-white rounded-[28px] p-2 shadow-sm border border-slate-200 w-fit shrink-0">
              <button
                 onClick={() => { setActiveTab('doctors'); setSearch(''); }}
                 className={`px-8 py-3 rounded-2xl text-sm font-black transition-all flex items-center gap-2 ${activeTab === 'doctors' ? 'bg-primary-700 text-white shadow-lg' : 'text-slate-500 hover:text-slate-900'}`}
@@ -165,39 +165,40 @@ export default function DoctorsPage() {
         </div>
 
         {/* Search & Hierarchical Filters (Aerated) */}
-        <div className="bg-white rounded-[40px] p-6 md:p-8 shadow-sm border border-slate-100 mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="relative lg:col-span-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {/* Search Input */}
+          <div className="flex items-center gap-4 bg-white border border-slate-200 rounded-[24px] px-5 h-16 shadow-sm focus-within:ring-2 focus-within:ring-primary-600 transition-all group">
+            <Search className="text-slate-400 group-focus-within:text-primary-600 shrink-0" size={22} />
             <input
               type="text"
               placeholder={`Search ${activeTab}...`}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-primary-600 outline-none transition-all"
+              className="w-full bg-transparent text-sm font-bold text-slate-900 outline-none placeholder:text-slate-400"
             />
           </div>
           
-          <div className="relative">
-            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+          {/* State Filter */}
+          <div className="flex items-center gap-4 bg-white border border-slate-200 rounded-[24px] px-5 h-16 shadow-sm focus-within:ring-2 focus-within:ring-primary-600 transition-all group">
+            <MapPin className="text-slate-400 group-focus-within:text-primary-600 shrink-0" size={22} />
             <select
               value={state}
               onChange={(e) => setState(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-primary-600 outline-none appearance-none"
+              className="w-full bg-transparent text-sm font-bold text-slate-900 outline-none appearance-none cursor-pointer"
             >
               <option value="">All States in India</option>
               {states.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
 
-
-
-          <div className="relative">
-            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+          {/* Specialty Filter */}
+          <div className={`flex items-center gap-4 border rounded-[24px] px-5 h-16 shadow-sm transition-all group ${activeTab === 'hospitals' ? 'bg-slate-100 border-slate-200 opacity-50 cursor-not-allowed' : 'bg-white border-slate-200 focus-within:ring-2 focus-within:ring-primary-600'}`}>
+            <Filter className={`shrink-0 ${activeTab === 'hospitals' ? 'text-slate-300' : 'text-slate-400 group-focus-within:text-primary-600'}`} size={22} />
             <select
               value={specialty}
               onChange={(e) => setSpecialty(e.target.value)}
               disabled={activeTab === 'hospitals'}
-              className="w-full h-14 pl-12 pr-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-primary-600 outline-none appearance-none disabled:bg-slate-100 disabled:opacity-50"
+              className="w-full bg-transparent text-sm font-bold text-slate-900 outline-none appearance-none cursor-pointer disabled:cursor-not-allowed"
             >
               <option value="">All Specialties</option>
               {specialties.map(s => <option key={s} value={s}>{s}</option>)}

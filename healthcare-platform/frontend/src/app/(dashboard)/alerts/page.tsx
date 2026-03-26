@@ -76,20 +76,21 @@ export default function AlertsPage() {
   return (
     <div className="min-h-screen bg-neutral-50 p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex justify-between items-end">
-          <div>
-            <h1 className="text-3xl font-bold text-neutral-900">Medical Alerts</h1>
-            <p className="text-neutral-500">Scheduled reminders for medications and checkups.</p>
-          </div>
-          {!isAdding && (
-            <button 
-              onClick={() => setIsAdding(true)}
-              className="btn-primary flex items-center gap-2"
-            >
-              <Plus size={20} /> Create Alert
-            </button>
-          )}
+        {/* Header (Centered) */}
+        <div className="flex flex-col items-center text-center gap-6 border-b border-neutral-200 pb-12">
+           <div className="w-16 h-16 bg-primary-100 text-primary-700 rounded-3xl flex items-center justify-center text-3xl shadow-lg border border-primary-50">🔔</div>
+           <div className="space-y-2">
+             <h1 className="text-5xl font-black text-neutral-900 tracking-tight">Medical Alerts</h1>
+             <p className="text-neutral-500 font-medium text-lg max-w-2xl">Scheduled reminders for medications, checkups, and vaccinations.</p>
+           </div>
+           {!isAdding && (
+             <button 
+               onClick={() => setIsAdding(true)}
+               className="btn-primary px-10 py-4 rounded-2xl flex items-center gap-2 shadow-xl shadow-primary-200"
+             >
+               <Plus size={22} /> Create Alert
+             </button>
+           )}
         </div>
 
         {isAdding && (
@@ -167,10 +168,13 @@ export default function AlertsPage() {
             {[1, 2].map(i => <div key={i} className="h-24 bg-neutral-200 animate-pulse rounded-2xl" />)}
           </div>
         ) : alerts.length === 0 ? (
-          <div className="card text-center py-12 space-y-4">
-            <div className="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center text-3xl mx-auto">🔔</div>
-            <p className="text-neutral-500">No active alerts or reminders.</p>
-            <button onClick={() => setIsAdding(true)} className="text-primary-700 font-bold hover:underline">Set your first reminder</button>
+          <div className="bg-white border text-center py-20 rounded-[48px] space-y-6 shadow-sm border-dashed border-2">
+            <div className="w-24 h-24 bg-neutral-50 rounded-full flex items-center justify-center text-5xl mx-auto shadow-inner">🔔</div>
+            <div className="space-y-2">
+              <h3 className="text-2xl font-black text-neutral-900">No active alerts</h3>
+              <p className="text-neutral-500 max-w-xs mx-auto text-sm font-medium">Keep your health on track by setting reminders for your treatments and visits.</p>
+            </div>
+            <button onClick={() => setIsAdding(true)} className="text-primary-700 font-black hover:scale-105 transition-transform">Set your first reminder →</button>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-4">

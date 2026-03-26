@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// Fallback to strict local network routing, but keep tunnel header active in case of proxy use
-const API_BASE_URL = 'https://curalink-api-final.loca.lt/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -26,9 +25,20 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error('API Error:', {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      message: error.response?.data?.error || error.message
+    });
+
     if (error.response?.status === 401 && typeof window !== 'undefined') {
       localStorage.removeItem('authToken');
-      window.location.href = '/login';
+      // Only redirect if we are not already on the login/signup/landing pages
+      const publicPaths = ['/login', '/signup', '/'];
+      if (!publicPaths.includes(window.location.pathname)) {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }

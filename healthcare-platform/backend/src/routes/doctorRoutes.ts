@@ -4,40 +4,32 @@ import { authMiddleware, AuthRequest } from '../middleware/authMiddleware';
 
 const router = Router();
 
-// Seed sample doctors on first request
+import fs from 'fs';
+import path from 'path';
+
+// Seed sample doctors from JSON
 async function seedDoctors() {
-  const count = await pool.query('SELECT COUNT(*) FROM doctors');
-  if (parseInt(count.rows[0].count) > 0) return;
-
-  const doctors = [
-    // Karnataka - Bangalore
-    ['Dr. Priya Sharma', 'priya.sharma@example.com', '+91 98765 43210', 'General Physician', 'MBBS, MD', 12, 'Apollo Clinic', 'MG Road, Bangalore', 'Karnataka', 'Bangalore Urban', 'Koramangala', 4.8],
-    ['Dr. Rajesh Kumar', 'rajesh.kumar@example.com', '+91 98765 43211', 'Cardiologist', 'MBBS, MD, DM Cardiology', 18, 'Heart Care Center', 'Koramangala, Bangalore', 'Karnataka', 'Bangalore Urban', 'Koramangala', 4.9],
-    ['Dr. Anita Patel', 'anita.patel@example.com', '+91 98765 43212', 'Dermatologist', 'MBBS, MD Dermatology', 8, 'SkinCare Clinic', 'Indiranagar, Bangalore', 'Karnataka', 'Bangalore Urban', 'Indiranagar', 4.7],
+  try {
+    const doctorsPath = path.join(__dirname, '../data/doctors.json');
+    if (!fs.existsSync(doctorsPath)) {
+      console.warn('doctors.json not found, skipping seeding');
+      return;
+    }
     
-    // Karnataka - Mysore
-    ['Dr. S. K. Murthy', 'sk.murthy@example.com', '+91 98765 43220', 'Pediatrician', 'MBBS, DCH', 15, 'Mysuru Kid Care', 'Siddhartha Layout, Mysore', 'Karnataka', 'Mysore', 'Siddhartha Layout', 4.8],
+    const doctors = JSON.parse(fs.readFileSync(doctorsPath, 'utf8'));
+    console.log(`Seeding ${doctors.length} doctors...`);
 
-    // Maharashtra - Mumbai
-    ['Dr. Rahul Mehta', 'rahul.mehta@example.com', '+91 98765 43230', 'Orthopedist', 'MBBS, MS Ortho', 14, 'Mumbai Ortho Center', 'Andheri West, Mumbai', 'Maharashtra', 'Mumbai', 'Andheri', 4.7],
-    ['Dr. Sameera Khan', 'sameera.khan@example.com', '+91 98765 43231', 'Gynecologist', 'MBBS, DGO', 11, 'Elite Women Clinic', 'Bandra East, Mumbai', 'Maharashtra', 'Mumbai', 'Bandra', 4.9],
-    
-    // Delhi - New Delhi
-    ['Dr. Amit Goel', 'amit.goel@example.com', '+91 98765 43240', 'Neurologist', 'MBBS, MD, DM Neuro', 20, 'Delhi Neuro Hospital', 'Connaught Place, Delhi', 'Delhi', 'New Delhi', 'Connaught Place', 4.9],
-    ['Dr. Neha Gupta', 'neha.gupta@example.com', '+91 98765 43241', 'Endocrinologist', 'MBBS, MD', 9, 'Delhi Diabetes Hub', 'Saket, Delhi', 'Delhi', 'South Delhi', 'Saket', 4.8],
-    
-    // Telangana - Hyderabad
-    ['Dr. Venkat Rao', 'venkat.rao@example.com', '+91 98765 43250', 'ENT Specialist', 'MBBS, MS ENT', 16, 'Hyderabad ENT Care', 'Gachibowli, Hyderabad', 'Telangana', 'Hyderabad', 'Gachibowli', 4.7],
-    ['Dr. Lakshmi Devi', 'lakshmi.devi@example.com', '+91 98765 43251', 'Oncologist', 'MBBS, MD, DM', 22, 'Care Cancer Center', 'Jubilee Hills, Hyderabad', 'Telangana', 'Hyderabad', 'Jubilee Hills', 4.9],
-  ];
-
-  for (const d of doctors) {
-    await pool.query(
-      `INSERT INTO doctors (name, email, phone, specialty, qualifications, experience_years, clinic_name, clinic_address, state, district, locality, rating, verified)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,true)
-       ON CONFLICT (email) DO NOTHING`,
-      d
-    );
+    for (const d of doctors) {
+      await pool.query(
+        `INSERT INTO doctors (name, email, phone, specialty, qualifications, experience_years, clinic_name, clinic_address, state, district, locality, rating, verified)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,true)
+         ON CONFLICT (email) DO NOTHING`,
+        [d.name, d.email, d.phone, d.specialty, d.qualifications, d.experience_years, d.clinic_name, d.clinic_address, d.state, d.district, d.locality, d.rating]
+      );
+    }
+    console.log('Doctor seeding completed successfully.');
+  } catch (err) {
+    console.error('Error seeding doctors:', err);
   }
 }
 

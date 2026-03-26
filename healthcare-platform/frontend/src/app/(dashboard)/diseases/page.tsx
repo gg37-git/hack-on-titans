@@ -47,39 +47,43 @@ export default function DiseaseLibraryPage() {
   return (
     <div className="min-h-screen bg-neutral-50 p-4 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold text-neutral-900">Disease Library</h1>
-          <p className="text-neutral-500">Comprehensive educational resources on common health conditions.</p>
+        {/* Header (Centered) */}
+        <div className="flex flex-col items-center text-center gap-6 border-b border-neutral-200 pb-12">
+          <div className="w-16 h-16 bg-neutral-100 rounded-3xl flex items-center justify-center text-3xl shadow-lg border border-neutral-50">📚</div>
+          <div className="space-y-2">
+            <h1 className="text-5xl font-black text-neutral-900 tracking-tight">Disease Library</h1>
+            <p className="text-neutral-500 font-medium text-lg max-w-2xl mx-auto">Comprehensive, clinical-grade educational resources on common health conditions and wellness.</p>
+          </div>
         </div>
 
-        {/* Search & Filter */}
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" size={20} />
+        {/* Search & Filter (Centered) */}
+        <div className="flex flex-col items-center gap-12">
+          <div className="w-full max-w-2xl relative group">
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary-700 transition-colors" size={24} />
             <input
               type="text"
               placeholder="Search by disease name or category..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="input-field pl-10 h-10 shadow-sm"
+              className="w-full h-20 pl-16 pr-8 bg-white border-2 border-slate-100 rounded-[32px] text-lg font-bold shadow-xl shadow-slate-200/50 focus:border-primary-700 focus:bg-white outline-none transition-all placeholder:text-slate-300"
             />
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+          
+          <div className="w-full max-w-4xl flex flex-wrap justify-center gap-3">
             <button
               onClick={() => setSelectedCategory('')}
-              className={`px-4 py-2 rounded-full text-xs font-bold transition-all border whitespace-nowrap ${
-                selectedCategory === '' ? 'bg-primary-700 text-white border-primary-700' : 'bg-white text-neutral-600 border-neutral-200 hover:border-primary-700'
+              className={`px-8 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all border-2 whitespace-nowrap ${
+                selectedCategory === '' ? 'bg-primary-700 text-white border-primary-700 shadow-xl shadow-primary-200' : 'bg-white text-slate-500 border-slate-100 hover:border-primary-700 hover:text-primary-700'
               }`}
             >
-              All
+              All Conditions
             </button>
             {categories.map(c => (
               <button
                 key={c}
                 onClick={() => setSelectedCategory(c)}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all border whitespace-nowrap ${
-                  selectedCategory === c ? 'bg-primary-700 text-white border-primary-700' : 'bg-white text-neutral-600 border-neutral-200 hover:border-primary-700'
+                className={`px-8 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all border-2 whitespace-nowrap ${
+                  selectedCategory === c ? 'bg-primary-700 text-white border-primary-700 shadow-xl shadow-primary-200' : 'bg-white text-slate-500 border-slate-100 hover:border-primary-700 hover:text-primary-700'
                 }`}
               >
                 {c}

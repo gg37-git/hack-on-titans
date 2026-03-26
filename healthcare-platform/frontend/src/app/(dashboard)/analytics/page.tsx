@@ -60,20 +60,20 @@ export default function AnalyticsPage() {
   }, [scores.length]);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] p-4 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-10">
+    <div className="min-h-screen bg-[#f8fafc] p-4 md:p-8 flex flex-col items-center">
+      <div className="max-w-6xl w-full flex flex-col gap-20">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-              <Activity className="text-primary-700" size={32} /> Predictive Risk Analytics
+        {/* Header (Centered) */}
+        <div className="flex flex-col items-center text-center gap-6 border-b border-slate-200 pb-12">
+          <div className="space-y-3">
+            <h1 className="text-5xl font-black text-slate-900 tracking-tight flex items-center justify-center gap-4">
+              <Activity className="text-primary-700" size={40} /> Predictive Risk Analytics
             </h1>
-            <p className="text-slate-500 font-medium">AI-generated health scores based on your history and profile.</p>
+            <p className="text-slate-600 font-medium text-lg max-w-2xl mx-auto">AI-generated clinical health scores and longitudinal analysis based on your history and profile.</p>
           </div>
-          <div className="px-4 py-2 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-             <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">Live Wearable Sync</span>
+          <div className="px-6 py-2.5 bg-white rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3 w-fit">
+             <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
+             <span className="text-[11px] uppercase font-black text-slate-400 tracking-[0.2em]">Live Biometric Sync</span>
           </div>
         </div>
 
@@ -82,7 +82,7 @@ export default function AnalyticsPage() {
             {[1, 2, 3].map(i => <div key={i} className="h-64 bg-slate-200 animate-pulse rounded-[40px]" />)}
           </div>
         ) : (
-          <div className="space-y-10">
+          <div className="flex flex-col gap-32">
             {/* Risk Score Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                {scores.map((s, i) => (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Mic, MicOff, Send, History, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Mic, MicOff, Send, History, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import apiClient from '@/lib/api';
 import 'regenerator-runtime/runtime';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
@@ -84,18 +84,18 @@ export default function SymptomCheckerPage() {
   return (
     <div className="min-h-screen bg-neutral-50 p-4 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex justify-between items-end">
-          <div>
-            <h1 className="text-3xl font-bold text-neutral-900">Symptom Checker</h1>
-            <p className="text-neutral-500">Describe your symptoms for an AI-powered health analysis.</p>
+        {/* Header (Centered) */}
+        <div className="flex flex-col items-center text-center gap-6 border-b border-neutral-200 pb-10">
+          <div className="space-y-3">
+            <h1 className="text-4xl md:text-5xl font-black text-neutral-900 tracking-tight">Symptom Checker</h1>
+            <p className="text-neutral-500 text-lg font-medium max-w-2xl">Describe your symptoms for an AI-powered clinical health analysis and guidance.</p>
           </div>
           <button 
             onClick={() => setShowHistory(!showHistory)}
-            className="flex items-center gap-2 text-primary-700 hover:text-primary-800 font-medium"
+            className="flex items-center gap-2 bg-white border border-neutral-200 px-6 py-3 rounded-full text-primary-700 hover:bg-primary-50 hover:border-primary-200 transition-all font-bold shadow-sm"
           >
-            <History size={20} />
-            {showHistory ? 'Hide History' : 'View History'}
+            <History size={18} />
+            {showHistory ? 'Hide Session History' : 'View Past Analyses'}
           </button>
         </div>
 
@@ -129,52 +129,55 @@ export default function SymptomCheckerPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Input Section */}
           <div className="md:col-span-2 space-y-6">
-            <form onSubmit={handleSubmit} className="card space-y-6">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-neutral-700">What symptoms are you feeling?</label>
+            <form onSubmit={handleSubmit} className="bg-white border border-slate-200 rounded-[32px] p-8 space-y-8 shadow-sm">
+              <div className="space-y-4">
+                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest ml-1">What symptoms are you feeling?</label>
                 <div className="relative">
                   <textarea
                     value={symptoms}
                     onChange={(e) => setSymptoms(e.target.value)}
                     placeholder="E.g. I have a sharp pain in my chest that started this morning..."
-                    className="input-field min-h-[150px] pr-12"
+                    className="w-full bg-slate-50 border-transparent rounded-2xl p-6 text-slate-900 focus:bg-white focus:ring-2 focus:ring-primary-700 transition-all min-h-[160px] pr-14 text-lg"
                   />
                   <button
                     type="button"
                     onClick={handleToggleListening}
-                    className={`absolute bottom-3 right-3 p-2 rounded-full transition-colors ${
-                      listening ? 'bg-red-500 text-white animate-pulse' : 'bg-neutral-100 text-neutral-500 hover:bg-neutral-200'
+                    className={`absolute bottom-4 right-4 p-3 rounded-xl transition-all ${
+                      listening ? 'bg-red-500 text-white shadow-lg shadow-red-200 animate-pulse' : 'bg-white text-slate-400 hover:text-primary-700 border border-slate-100 shadow-sm'
                     }`}
                   >
-                    {listening ? <MicOff size={20} /> : <Mic size={20} />}
+                    {listening ? <MicOff size={22} /> : <Mic size={22} />}
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-neutral-700">Duration</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <label className="block text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Duration</label>
                   <input
                     type="text"
                     value={duration}
                     onChange={(e) => setDuration(e.target.value)}
                     placeholder="E.g. 2 days"
-                    className="input-field"
+                    className="w-full h-14 bg-slate-50 border-transparent rounded-2xl px-6 text-slate-900 focus:bg-white focus:ring-2 focus:ring-primary-700 transition-all"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="block text-sm font-medium text-neutral-700">Intensity (1-10)</label>
-                  <input
-                    type="range"
-                    min="1"
-                    max="10"
-                    value={intensity}
-                    onChange={(e) => setIntensity(parseInt(e.target.value))}
-                    className="w-full h-2 bg-neutral-200 rounded-lg appearance-none cursor-pointer accent-primary-700"
-                  />
-                  <div className="flex justify-between text-xs text-neutral-500">
-                    <span>Mild</span>
-                    <span>Severe</span>
+                <div className="space-y-4">
+                  <label className="block text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Intensity (1-10)</label>
+                  <div className="pt-4 px-2">
+                    <input
+                      type="range"
+                      min="1"
+                      max="10"
+                      value={intensity}
+                      onChange={(e) => setIntensity(parseInt(e.target.value))}
+                      className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-primary-700 transition-all"
+                    />
+                    <div className="flex justify-between text-[10px] font-black text-slate-400 uppercase tracking-widest mt-4">
+                      <span>Mild</span>
+                      <span className="text-primary-700">{intensity} / 10</span>
+                      <span>Severe</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -182,12 +185,14 @@ export default function SymptomCheckerPage() {
               <button
                 type="submit"
                 disabled={isLoading || !symptoms.trim()}
-                className="btn-primary w-full flex items-center justify-center gap-2"
+                className="bg-primary-700 text-white w-full py-5 rounded-[24px] font-black text-lg hover:bg-primary-800 disabled:opacity-50 transition-all shadow-xl shadow-primary-700/20 active:scale-[0.98] flex items-center justify-center gap-3"
               >
-                {isLoading ? 'Analyzing...' : (
+                {isLoading ? (
+                  <Loader2 className="animate-spin" size={24} />
+                ) : (
                   <>
-                    <Send size={18} />
-                    Check Symptoms
+                    <Send size={22} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    Check Symptoms Now
                   </>
                 )}
               </button>

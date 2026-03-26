@@ -89,30 +89,57 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-10 md:gap-16 pt-2 animate-in fade-in duration-500">
         
-        {/* Streamlined Hero Banner (Upscaled) */}
+        {/* Premium Light-Theme Hero Banner (Mesh Gradient & Glassmorphism) */}
         <div className="w-full">
-          <div className="bg-gradient-to-r from-primary-700 to-primary-500 rounded-[32px] md:rounded-[40px] px-8 py-10 md:px-12 md:py-14 text-white overflow-hidden shadow-xl shadow-primary-900/10 relative flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div className="relative z-10 flex flex-col gap-3">
-               <p className="text-primary-100 font-black tracking-[0.25em] uppercase text-[11px] md:text-xs">
-                 {greeting()}
-               </p>
-               <h1 className="text-4xl md:text-5xl lg:text-5xl font-black leading-tight tracking-tight text-white max-w-xl">
-                  Hello, {user?.fullName?.split(' ')[0] || 'User'}! Ready for a checkup?
-               </h1>
+          <div className="relative bg-white rounded-[32px] md:rounded-[40px] px-8 py-10 md:px-12 md:py-14 text-slate-900 overflow-hidden shadow-sm border border-slate-200 group">
+            
+            {/* Soft Mesh Blobs (Light Theme) */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-100/40 blur-[120px] -translate-y-1/2 translate-x-1/2 animate-pulse transition-all duration-1000"></div>
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-50/50 blur-[100px] translate-y-1/2 -translate-x-1/3"></div>
+            
+            {/* Subtle Overlay for texture */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-50/20 via-transparent to-white z-0"></div>
+
+            <div className="relative z-10 flex flex-col items-center text-center gap-10">
+               <div className="flex flex-col items-center gap-5 max-w-3xl">
+                  <div className="flex items-center gap-3">
+                     <span className="w-10 h-[2px] bg-primary-200 rounded-full"></span>
+                     <p className="text-primary-600 font-bold tracking-[0.4em] uppercase text-[10px] sm:text-xs">
+                        {greeting()}
+                     </p>
+                     <span className="w-10 h-[2px] bg-primary-200 rounded-full"></span>
+                  </div>
+                  
+                  <h1 className="text-3xl md:text-5xl lg:text-7xl font-black leading-[1] tracking-tighter text-slate-900">
+                     Hi, {user?.fullName?.split(' ')[0] || 'User'}! <br/>
+                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-indigo-600 opacity-90">Ready for your health check?</span>
+                  </h1>
+                  
+                  <p className="text-slate-500 text-sm md:text-xl font-medium max-w-2xl leading-relaxed">
+                     Experience the next generation of AI healthcare. <br className="hidden md:block"/> Our clinical intelligence is active and ready to assist you.
+                  </p>
+               </div>
+               
+               <div className="relative z-10 flex flex-wrap justify-center gap-6 shrink-0 items-center">
+                  <button 
+                    onClick={() => router.push('/symptom-checker')} 
+                    className="bg-primary-700 text-white px-10 py-5 rounded-[24px] font-black text-sm md:text-lg flex items-center gap-3 hover:bg-primary-800 transition-all shadow-xl shadow-primary-200 active:scale-95 group/btn"
+                  >
+                     Initiate Body Scan 
+                     <ChevronRight size={22} className="translate-x-0 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                  <button 
+                    onClick={() => router.push('/ai-doc')} 
+                    className="bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 px-10 py-5 rounded-[24px] font-black text-sm md:text-lg transition-all shadow-sm"
+                  >
+                     Talk to AI Doctor
+                  </button>
+               </div>
             </div>
             
-            <div className="relative z-10 flex gap-4 shrink-0">
-               <button onClick={() => router.push('/symptom-checker')} className="bg-white text-primary-700 px-8 py-4 rounded-[20px] font-black text-sm md:text-base flex items-center gap-2 hover:bg-neutral-50 transition-all shadow-lg active:scale-95">
-                  Initiate Scan <ChevronRight size={18} />
-               </button>
-               <button onClick={() => router.push('/ai-doc')} className="bg-transparent text-white border-2 border-white/20 hover:bg-white/10 px-8 py-4 rounded-[20px] font-black text-sm md:text-base transition-all focus:ring-2">
-                  Connect AI
-               </button>
-            </div>
-            
-            {/* Visual Decor */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-[0.08] pointer-events-none translate-x-[20%]">
-               <Heart size={200} className="text-white" fill="currentColor" />
+            {/* Subtle Decorative Icon */}
+            <div className="absolute right-[-2%] top-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none scale-150">
+               <Bot size={280} className="text-primary-900" strokeWidth={1} />
             </div>
           </div>
         </div>
@@ -146,15 +173,21 @@ export default function DashboardPage() {
                   </button>
                </div>
 
-               {/* Conditions & Allergies Quick Access (Expanded) */}
-               <div className="grid grid-cols-2 gap-6">
-                 <button onClick={() => router.push('/medical-conditions')} className="bg-white border border-slate-200 rounded-[32px] p-6 text-center hover:border-primary-700 transition-all group">
-                    <div className="text-2xl mb-2 grayscale group-hover:grayscale-0 transition-all">🩺</div>
-                    <p className="text-[10px] uppercase font-black text-slate-400 group-hover:text-primary-700">Conditions</p>
+               {/* Conditions & Allergies Quick Access (Balanced) */}
+               <div className="grid grid-cols-1 gap-3">
+                 <button onClick={() => router.push('/medical-conditions')} className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between hover:border-primary-700 transition-all group shadow-sm">
+                    <div className="flex items-center gap-3">
+                       <div className="text-xl">🩺</div>
+                       <p className="text-xs font-black text-slate-700 uppercase tracking-tight">Conditions</p>
+                    </div>
+                    <ChevronRight size={14} className="text-slate-300 group-hover:text-primary-700" />
                  </button>
-                  <button onClick={() => router.push('/allergies')} className="bg-white border border-slate-200 rounded-[32px] p-6 text-center hover:border-primary-700 transition-all group">
-                    <div className="text-2xl mb-2 grayscale group-hover:grayscale-0 transition-all">🥜</div>
-                    <p className="text-[10px] uppercase font-black text-slate-400 group-hover:text-primary-700">Allergies</p>
+                  <button onClick={() => router.push('/allergies')} className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between hover:border-primary-700 transition-all group shadow-sm">
+                    <div className="flex items-center gap-3">
+                       <div className="text-xl">🥜</div>
+                       <p className="text-xs font-black text-slate-700 uppercase tracking-tight">Allergies</p>
+                    </div>
+                    <ChevronRight size={14} className="text-slate-300 group-hover:text-primary-700" />
                  </button>
               </div>
            </div>
@@ -213,34 +246,36 @@ export default function DashboardPage() {
                 </div>
               )}
 
-              {/* Organized Services Grid (De-clumped) */}
-              <div className="space-y-16 md:space-y-24">
-                 {serviceGroups.map((group) => (
-                    <div key={group.title} className="space-y-8">
-                       <h2 className="text-base font-black text-slate-800 tracking-[-0.02em] pl-2 border-l-4 border-primary-500 rounded-sm italic">{group.title}</h2>
-                       <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-10">
-                          {group.items.map((item) => (
-                            <button
-                              key={item.label}
-                              onClick={() => router.push(item.href)}
-                              className={`${item.color} border-2 rounded-[40px] p-6 md:p-8 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-${item.color.split('-')[1]}-500/20 group flex flex-col items-start justify-between min-h-[160px] md:min-h-[180px] relative overflow-hidden`}
-                            >
-                              <div className="absolute -right-6 -top-6 w-24 h-24 bg-white/40 blur-2xl rounded-full group-hover:scale-150 transition-transform duration-700"></div>
-                              <div className="relative z-10 group-hover:scale-110 transition-transform duration-500 bg-white shadow-sm p-4 rounded-3xl mb-4">
-                                {item.icon}
-                              </div>
-                              <div className="w-full flex items-center justify-between relative z-10">
-                                <p className="font-black text-sm md:text-base leading-tight tracking-tight">{item.label}</p>
-                                <div className="w-8 h-8 rounded-full bg-white/50 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-300 backdrop-blur-md">
-                                  <ChevronRight size={16} />
-                                </div>
-                              </div>
-                            </button>
-                          ))}
-                       </div>
-                    </div>
+               <div className="space-y-12">
+                  {serviceGroups.map((group) => (
+                     <div key={group.title} className="space-y-6">
+                        <h2 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center justify-center gap-3">
+                           <span className="w-8 h-[1px] bg-slate-200"></span>
+                           {group.title}
+                           <span className="w-8 h-[1px] bg-slate-200"></span>
+                        </h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                           {group.items.map((item) => (
+                             <button
+                               key={item.label}
+                               onClick={() => router.push(item.href)}
+                               className={`${item.color} border border-slate-200 rounded-3xl p-8 text-center transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 group flex flex-col items-center justify-center gap-4 min-h-[180px] relative overflow-hidden`}
+                             >
+                               <div className="relative z-10 bg-white shadow-md p-4 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+                                 {item.icon}
+                               </div>
+                               <div className="flex flex-col items-center gap-2 relative z-10">
+                                 <p className="font-black text-sm tracking-tight text-slate-900">{item.label}</p>
+                                 <div className="w-8 h-8 rounded-full bg-white/80 flex items-center justify-center group-hover:bg-primary-700 group-hover:text-white transition-all shadow-sm">
+                                    <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                                 </div>
+                               </div>
+                             </button>
+                           ))}
+                        </div>
+                     </div>
                   ))}
-              </div>
+               </div>
               
               <div className="h-20"></div> {/* Bottom Buffer for Spacing */}
            </div>

@@ -29,21 +29,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Check if user is logged in on mount
   useEffect(() => {
+    let retryCount = 0;
+    const maxRetries = 2;
+
     const verifySession = async () => {
       const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
       if (token) {
         try {
-          // Instruct Axios to automatically include this explicit token if needed
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
           const response = await apiClient.get('/auth/me');
-          setUser(response.data);
-        } catch (error) {
-           console.error('Session expiration or hydration failure', error);
+          if (response.data && response.data.id) {
+            setUser(response.data);
+            setIsLoading(false);
+          } else {
+            throw new Error('Invalid user data');
+          }
+        } catch (error: any) {
+           // If it's a network error and we have retries left, try again
+           if (retryCount < maxRetries && !error.response) {
+             retryCount++;
+             console.log(`Retrying session verification (${retryCount}/${maxRetries})...`);
+             setTimeout(verifySession, 1000);
+             return;
+           }
+
+           console.warn('Session verification failed:', error);
            if (typeof window !== 'undefined') localStorage.removeItem('authToken');
            setUser(null);
+           delete apiClient.defaults.headers.common['Authorization'];
+           setIsLoading(false);
         }
+      } else {
+        setUser(null);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     verifySession();
   }, []);

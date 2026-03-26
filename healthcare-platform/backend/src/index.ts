@@ -15,8 +15,10 @@ import alertRoutes, { createAlertsTable } from './routes/alertRoutes';
 import nutritionRoutes from './routes/nutritionRoutes';
 import mentalHealthRoutes from './routes/mentalHealthRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
+import healthScoreRoute from './routes/healthScoreRoute';
 import { authMiddleware, AuthRequest } from './middleware/authMiddleware';
 import pool from './config/database';
+import mongoose from 'mongoose';
 
 const Razorpay = require('razorpay');
 
@@ -33,8 +35,10 @@ const razorpay = new Razorpay({
 
 // Middleware
 app.use(cors({
-  origin: true, // Allow all origins (Localhost + Public Tunnels)
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:3001'],
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Bypass-Tunnel-Reminder'],
 }));
 app.use(express.json());
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
@@ -43,6 +47,15 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 (async () => {
   await initializeDatabase();
   await createAlertsTable(pool);
+  
+  // Connect to MongoDB for Health Scores
+  const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/healthcare_db';
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log('✅ MongoDB connected');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err);
+  }
 })().catch(console.error);
 
 // Routes
@@ -59,6 +72,7 @@ app.use('/api/alerts', alertRoutes);
 app.use('/api/nutrition', nutritionRoutes);
 app.use('/api/mental-health', mentalHealthRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/health-score', healthScoreRoute);
 
 app.post('/api/create-order', authMiddleware, async (req: AuthRequest, res: any) => {
   try {

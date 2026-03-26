@@ -40,91 +40,102 @@ export default function WearablePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white p-4 flex flex-col items-center justify-center font-sans tracking-tight">
-      <div className="w-[320px] h-[360px] bg-neutral-900 rounded-[60px] border-4 border-neutral-800 p-6 flex flex-col gap-4 shadow-2xl relative overflow-hidden group">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 p-6 flex flex-col items-center justify-center font-sans tracking-tight animate-in fade-in duration-500">
+      
+      {/* Premium Light Watch Frame */}
+      <div className="w-[340px] h-fit bg-white rounded-[70px] border-[12px] border-slate-900 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.25)] p-6 flex flex-col gap-6 relative overflow-hidden group">
         
-        {/* Abstract Glow */}
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary-700/20 rounded-full blur-3xl group-hover:bg-primary-500/30 transition-all duration-1000"></div>
+        {/* Abstract Mesh Background (Subtle) */}
+        <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary-100 rounded-full blur-[80px] group-hover:bg-primary-200 transition-all duration-1000 opacity-60"></div>
+        <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-indigo-50 rounded-full blur-[60px] opacity-60"></div>
 
         {/* Top: Status & Battery */}
-        <div className="flex justify-between items-center px-4 pt-2">
-           <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500">Live</span>
+        <div className="relative z-10 flex justify-between items-center px-4 pt-2">
+           <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Live Sync</span>
            </div>
-           <span className="text-[10px] font-black uppercase tracking-widest text-neutral-500">12:45 PM</span>
+           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">12:45 PM</span>
         </div>
 
-        {/* Vitals Grid */}
-        <div className="grid grid-cols-2 gap-3 flex-1 overflow-y-auto scrollbar-hide">
+        {/* Vitals Grid (Glassmorphism & Light Shadows) */}
+        <div className="relative z-10 grid grid-cols-2 gap-4">
            {/* Heart Rate */}
-           <div className="bg-neutral-800 p-4 rounded-[40px] flex flex-col items-center justify-center gap-1 border border-neutral-700/50 hover:bg-neutral-700/50 transition-colors">
-              <Heart className="text-red-500 animate-pulse" size={24} fill="currentColor" />
-              <span className="text-2xl font-black transition-all">{vitals.heartRate}</span>
-              <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">BPM</span>
+           <div className="bg-slate-50/80 backdrop-blur-sm p-5 rounded-[40px] flex flex-col items-center justify-center gap-2 border border-white shadow-sm hover:bg-white hover:shadow-md transition-all duration-300">
+              <Heart className="text-red-500 animate-pulse" size={28} fill="currentColor" />
+              <div className="flex flex-col items-center">
+                 <span className="text-3xl font-black text-slate-900 tabular-nums">{vitals.heartRate}</span>
+                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">BPM</span>
+              </div>
            </div>
            
            {/* SpO2 */}
-           <div className="bg-neutral-800 p-4 rounded-[40px] flex flex-col items-center justify-center gap-1 border border-neutral-700/50 hover:bg-neutral-700/50 transition-colors">
-              <Droplets className="text-cyan-400" size={24} />
-              <span className="text-2xl font-black text-cyan-50 transition-all">{vitals.spo2}%</span>
-              <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">SpO2</span>
+           <div className="bg-slate-50/80 backdrop-blur-sm p-5 rounded-[40px] flex flex-col items-center justify-center gap-2 border border-white shadow-sm hover:bg-white hover:shadow-md transition-all duration-300">
+              <Droplets className="text-primary-600" size={28} />
+              <div className="flex flex-col items-center">
+                 <span className="text-3xl font-black text-slate-900 tabular-nums">{vitals.spo2}%</span>
+                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">SpO2</span>
+              </div>
            </div>
-
+ 
            {/* Steps */}
-           <div className="bg-neutral-800 p-4 rounded-[40px] flex flex-col items-center justify-center gap-1 border border-neutral-700/50 hover:bg-neutral-700/50 transition-colors">
-              <Activity className="text-primary-500" size={24} />
-              <span className="text-xl font-black transition-all">{vitals.steps.toLocaleString()}</span>
-              <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">Steps</span>
+           <div className="bg-slate-50/80 backdrop-blur-sm p-5 rounded-[40px] flex flex-col items-center justify-center gap-2 border border-white shadow-sm hover:bg-white hover:shadow-md transition-all duration-300">
+              <Activity className="text-indigo-600" size={28} />
+              <div className="flex flex-col items-center">
+                 <span className="text-2xl font-black text-slate-900 tabular-nums">{vitals.steps.toLocaleString()}</span>
+                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Steps</span>
+              </div>
            </div>
-
+ 
            {/* HRV */}
-           <div className="bg-neutral-800 p-4 rounded-[40px] flex flex-col items-center justify-center gap-1 border border-neutral-700/50 hover:bg-neutral-700/50 transition-colors">
-              <Activity className="text-purple-400" size={24} />
-              <span className="text-2xl font-black text-purple-50 transition-all">{vitals.hrv}</span>
-              <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest">HRV (ms)</span>
+           <div className="bg-slate-50/80 backdrop-blur-sm p-5 rounded-[40px] flex flex-col items-center justify-center gap-2 border border-white shadow-sm hover:bg-white hover:shadow-md transition-all duration-300">
+              <Activity className="text-primary-500" size={28} />
+              <div className="flex flex-col items-center">
+                 <span className="text-3xl font-black text-slate-900 tabular-nums">{vitals.hrv}</span>
+                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">ms (HRV)</span>
+              </div>
            </div>
-
-           {/* Active Alert */}
+ 
+           {/* Active Alert (Light Version) */}
            {alerts.length > 0 ? (
-             <div className="col-span-2 bg-primary-900 border border-primary-700 p-4 rounded-[40px] flex items-center gap-4 animate-in slide-in-from-bottom-4">
-                <div className="w-10 h-10 bg-primary-700 rounded-2xl flex items-center justify-center">
-                   <Bell size={20} className="animate-wiggle text-white" />
+             <div className="col-span-2 bg-primary-700 text-white p-5 rounded-[40px] flex items-center gap-4 animate-in slide-in-from-bottom-4 shadow-xl shadow-primary-200">
+                <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                   <Bell size={24} className="animate-wiggle text-white" />
                 </div>
                 <div className="flex-1">
-                   <p className="text-[9px] font-black uppercase text-primary-400 tracking-widest">Alert</p>
-                   <p className="text-xs font-bold leading-tight line-clamp-1">{alerts[0].title}</p>
+                   <p className="text-[10px] font-black uppercase text-primary-200 tracking-widest">Active Alert</p>
+                   <p className="text-sm font-bold leading-tight line-clamp-1">{alerts[0].title}</p>
                 </div>
-                <ChevronRight size={16} className="text-primary-400" />
+                <ChevronRight size={18} className="text-primary-200" />
              </div>
            ) : (
-             <div className="col-span-2 bg-neutral-800 border border-neutral-700 p-4 rounded-[40px] flex items-center justify-center gap-2 opacity-50 italic text-[10px] font-bold">
-                <CheckCircle2 size={14} /> All clear today
+             <div className="col-span-2 bg-slate-50/50 border border-slate-100 p-5 rounded-[40px] flex items-center justify-center gap-2 text-slate-400 italic text-[11px] font-bold">
+                <CheckCircle2 size={16} className="text-green-500" /> All systems normal
              </div>
            )}
-
-           {/* Quick Actions */}
-           <div className="col-span-2 grid grid-cols-2 gap-3 mt-1">
-              <button className="bg-neutral-800 h-12 rounded-3xl flex items-center justify-center text-primary-500 border border-neutral-700/50 active:scale-95 transition-all">
-                 <Thermometer size={20} />
+ 
+           {/* Quick Actions (Light Mode) */}
+           <div className="col-span-2 grid grid-cols-2 gap-4 mt-2">
+              <button className="bg-white h-14 rounded-3xl flex items-center justify-center text-primary-600 shadow-sm border border-slate-100 hover:bg-primary-50 hover:border-primary-100 active:scale-95 transition-all">
+                 <Thermometer size={24} />
               </button>
-              <button className="bg-neutral-800 h-12 rounded-3xl flex items-center justify-center text-red-500 border border-neutral-700/50 active:scale-95 transition-all">
-                 <ShieldAlert size={20} />
+              <button className="bg-white h-14 rounded-3xl flex items-center justify-center text-red-500 shadow-sm border border-slate-100 hover:bg-red-50 hover:border-red-100 active:scale-95 transition-all">
+                 <ShieldAlert size={24} />
               </button>
            </div>
         </div>
-
+ 
         {/* Bottom indicator */}
-        <div className="w-12 h-1 bg-neutral-800 rounded-full mx-auto mt-2"></div>
+        <div className="w-16 h-1.5 bg-slate-200 rounded-full mx-auto mt-2"></div>
       </div>
-
-      <div className="mt-8 text-center space-y-4 max-w-xs">
-         <div className="flex items-center gap-2 justify-center text-primary-700">
+ 
+      <div className="mt-12 text-center space-y-4 max-w-sm">
+         <div className="flex items-center gap-3 justify-center text-primary-700 bg-primary-50 px-6 py-3 rounded-full w-fit mx-auto border border-primary-100">
             <Watch size={20} />
-            <h2 className="text-sm font-black uppercase tracking-widest">Wearable Sync Active</h2>
+            <h2 className="text-xs font-black uppercase tracking-[0.2em]">Wearable Sync Active</h2>
          </div>
-         <p className="text-xs text-neutral-500 font-medium leading-relaxed">
-            This simplified mode is optimized for smartwatches, fitness trackers, and smart glasses.
+         <p className="text-sm text-slate-500 font-medium leading-relaxed px-6">
+            Light Mode optimized for high-visibility environments. All metrics are synced via encrypted clinical protocols.
          </p>
       </div>
     </div>

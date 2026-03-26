@@ -93,19 +93,16 @@ export default function AIDocPage() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-64px)] bg-neutral-50 overflow-hidden">
-      {/* Header */}
-      <header className="bg-white border-b border-neutral-200 p-4 shrink-0 shadow-sm z-10 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white text-xl">
-            🤖
-          </div>
-          <div>
-            <h1 className="font-bold text-neutral-900 leading-tight">AI Doctor Assistant</h1>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider">Online • Powered by AI</span>
-            </div>
-          </div>
+      <header className="bg-white border-b border-neutral-200 p-8 shrink-0 shadow-sm z-10 flex flex-col items-center text-center gap-4 relative">
+        <div className="w-16 h-16 rounded-2xl bg-primary-700 flex items-center justify-center text-white text-3xl shadow-lg shadow-primary-100">
+           🤖
+        </div>
+        <div>
+           <h1 className="text-2xl font-black text-neutral-900 tracking-tight leading-tight">AI Clinical Assistant</h1>
+           <p className="text-xs text-green-600 font-bold flex items-center justify-center gap-2 mt-2">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> 
+              <span className="uppercase tracking-widest">Available for Expert Analysis</span>
+           </p>
         </div>
         <button 
           onClick={fetchHistory}
@@ -139,10 +136,10 @@ export default function AIDocPage() {
               }`}>
                 {m.role === 'user' ? <User size={18} /> : <Bot size={18} />}
               </div>
-              <div className={`p-4 rounded-2xl shadow-sm text-sm ${
+              <div className={`p-5 rounded-3xl shadow-sm text-sm leading-relaxed ${
                 m.role === 'user' 
                   ? 'bg-primary-700 text-white rounded-tr-none' 
-                  : 'bg-white border border-neutral-200 text-neutral-700 rounded-tl-none'
+                  : 'bg-white border border-slate-200 text-slate-700 rounded-tl-none shadow-slate-200/50'
               }`}>
                 {m.message}
               </div>
@@ -162,38 +159,41 @@ export default function AIDocPage() {
         </div>
       </main>
 
-      {/* Input Area */}
-      <footer className="bg-white border-t border-neutral-200 p-4 shrink-0">
-        <form onSubmit={handleSend} className="max-w-3xl mx-auto flex gap-2">
+      {/* Input Area (Centered & Premium) */}
+      <footer className="bg-white border-t border-slate-200 p-6 md:p-8 shrink-0">
+        <form onSubmit={handleSend} className="max-w-3xl mx-auto flex gap-3">
           <div className="relative flex-1">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type or speak your health question here..."
-              className="w-full bg-neutral-100 rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-700 transition-all border border-transparent"
+              placeholder="Ask anything about your health..."
+              className="w-full bg-slate-50 border-slate-100 rounded-2xl pl-6 pr-14 py-4 text-base focus:outline-none focus:ring-2 focus:ring-primary-700 transition-all text-slate-900 placeholder:text-slate-400"
             />
             <button
               type="button"
               onClick={handleToggleListening}
-              className={`absolute right-2 top-1.5 p-2 rounded-lg transition-colors ${
-                listening ? 'bg-red-500 text-white animate-pulse' : 'text-neutral-400 hover:bg-neutral-200 hover:text-neutral-600'
+              className={`absolute right-2 top-2 p-3 rounded-xl transition-all ${
+                listening ? 'bg-red-500 text-white shadow-lg shadow-red-200 animate-pulse' : 'text-slate-300 hover:text-primary-700 hover:bg-slate-100'
               }`}
             >
-              {listening ? <MicOff size={18} /> : <Mic size={18} />}
+              {listening ? <MicOff size={22} /> : <Mic size={22} />}
             </button>
           </div>
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="bg-primary-700 text-white p-3 rounded-xl hover:bg-primary-800 disabled:opacity-50 transition-colors shadow-md"
+            className="bg-primary-700 text-white p-4 rounded-2xl hover:bg-primary-800 disabled:opacity-50 transition-all shadow-xl shadow-primary-700/20 flex items-center justify-center shrink-0"
           >
-            <Send size={20} />
+            <Send size={24} />
           </button>
         </form>
-        <p className="text-[10px] text-center text-neutral-400 mt-2 font-medium tracking-tight">
-          AI-generated responses. Not a substitute for professional medical advice.
-        </p>
+        <div className="max-w-3xl mx-auto mt-4 flex items-center justify-center gap-2">
+           <Info size={12} className="text-slate-400" />
+           <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+             AI-generated content. Consult a real doctor for medical decisions.
+           </p>
+        </div>
       </footer>
     </div>
   );

@@ -107,12 +107,12 @@ export default function MentalHealthPage() {
 
   return (
     <div className="h-full bg-[#f8fafc] p-4 md:p-8 flex flex-col gap-8">
-      {/* Header */}
-      <div className="max-w-6xl mx-auto w-full space-y-2 text-center md:text-left">
-        <h1 className="text-4xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-           <Brain className="text-primary-700" size={36} /> Mental Health Hub
+      {/* Header (Centered) */}
+      <div className="max-w-6xl mx-auto w-full space-y-4 text-center border-b border-slate-200 pb-10">
+        <h1 className="text-5xl font-black text-slate-900 tracking-tight flex items-center justify-center gap-4">
+           <Brain className="text-primary-700" size={44} /> Mental Health Hub
         </h1>
-        <p className="text-slate-500 font-medium">An empathetic space for you to share, track, and breathe.</p>
+        <p className="text-slate-600 font-medium text-lg max-w-2xl mx-auto">An empathetic, high-fidelity space for you to share, track, and breathe with clinical AI support.</p>
       </div>
 
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1">
@@ -139,17 +139,8 @@ export default function MentalHealthPage() {
               </div>
            </div>
 
-           <div className="bg-slate-900 text-white rounded-[40px] p-8 shadow-xl relative overflow-hidden">
-              <div className="relative z-10 space-y-4">
-                 <h3 className="text-lg font-bold flex items-center gap-2">
-                   <Quote className="text-primary-500 rotate-180" size={20} fill="currentColor" /> Daily Quote
-                 </h3>
-                 <p className="text-primary-100 italic leading-relaxed">
-                   "Your mental health is a priority. Your happiness is an essential. Your self-care is a necessity."
-                 </p>
-              </div>
-              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-primary-700 rounded-full blur-3xl opacity-50"></div>
-           </div>
+            {/* Quote removed as per user request */}
+            <div className="hidden"></div>
 
            {moodHistory.length > 0 && (
              <div className="bg-white border border-slate-200 rounded-[40px] p-8 shadow-sm">

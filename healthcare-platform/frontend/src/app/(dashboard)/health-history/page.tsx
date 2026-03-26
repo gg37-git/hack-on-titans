@@ -64,26 +64,31 @@ export default function HealthHistoryPage() {
   const filteredHistory = filter === 'all' ? history : history.filter(h => h.type === filter);
 
   return (
-    <div className="min-h-screen bg-neutral-50 p-6 md:p-12 lg:p-16">
-      <div className="max-w-4xl mx-auto space-y-16">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-          <div className="space-y-2">
-            <h1 className="text-4xl font-black text-neutral-900 tracking-tight">Health History</h1>
-            <p className="text-neutral-500 font-medium text-lg">Your complete record of consultations and symptom checks.</p>
+    <div className="min-h-screen bg-neutral-50 p-6 md:p-12 lg:p-16 flex flex-col items-center">
+      <div className="max-w-4xl w-full flex flex-col">
+        {/* Header (Centered) */}
+        <div className="flex flex-col items-center text-center gap-8 border-b border-neutral-200 pb-12">
+          <div className="space-y-4">
+            <h1 className="text-5xl font-black text-neutral-900 tracking-tight flex items-center justify-center gap-4">
+               <History className="text-primary-700" size={44} /> Health History
+            </h1>
+            <p className="text-neutral-500 font-medium text-lg max-w-2xl mx-auto">Your complete, AI-organized record of consultations and clinical symptom checks.</p>
           </div>
-          <div className="flex bg-white rounded-xl p-1 border border-neutral-200">
-            {(['all', 'symptom_check', 'appointment'] as const).map(f => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all capitalize ${
-                  filter === f ? 'bg-primary-700 text-white shadow-sm' : 'text-neutral-500 hover:text-primary-700'
-                }`}
-              >
-                {f.replace('_', ' ')}
-              </button>
-            ))}
+          
+          <div className="w-full flex justify-center">
+            <div className="flex flex-wrap justify-center bg-white rounded-3xl p-3 border border-neutral-200 shadow-sm gap-3">
+              {(['all', 'symptom_check', 'appointment'] as const).map(f => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className={`px-10 py-3 rounded-2xl text-[11px] font-black transition-all capitalize whitespace-nowrap border ${
+                    filter === f ? 'bg-primary-700 text-white border-primary-700 shadow-lg' : 'bg-white text-neutral-500 border-neutral-100 hover:text-primary-700 hover:bg-neutral-50'
+                  }`}
+                >
+                  {f.replace('_', ' ')}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -147,11 +152,14 @@ export default function HealthHistoryPage() {
                   </div>
                 </div>
               ))}
-          </div>
-        )}
+            </div>
+          )}
 
-         {/* Insight Card */}
-         <div className="bg-primary-900 text-white p-8 rounded-[40px] relative overflow-hidden shadow-2xl">
+          {/* Large Spacer to prevent overlap */}
+          <div className="h-32 w-full"></div>
+
+          {/* AI Insights Summary (Centered) */}
+          <div className="bg-primary-900 text-white rounded-[48px] p-8 md:p-16 relative overflow-hidden shadow-2xl mt-12">
             <div className="relative z-10 space-y-4">
                <h4 className="text-2xl font-black">AI Insights Summary</h4>
                <p className="text-primary-100 text-sm leading-relaxed max-w-lg">

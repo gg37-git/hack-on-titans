@@ -12,7 +12,7 @@ router.get('/risk-scores', authMiddleware, async (req: AuthRequest, res: Respons
 
     const profile = profileRes.rows[0] || {};
     const conditions = conditionsRes.rows.map(c => c.condition_name.toLowerCase());
-    
+
     // Simple mock algorithm for risk scoring
     let heartRisk = 15; // Base risk
     let diabetesRisk = 20;
@@ -21,7 +21,7 @@ router.get('/risk-scores', authMiddleware, async (req: AuthRequest, res: Respons
     // Adjust based on age
     const ageValue = profile.date_of_birth ? (new Date().getFullYear() - new Date(profile.date_of_birth).getFullYear()) : 30;
     if (ageValue > 50) { heartRisk += 20; diabetesRisk += 15; }
-    
+
     // Adjust based on BMI (Height/Weight)
     if (profile.height_cm && profile.weight_kg) {
       const heightInM = profile.height_cm / 100;
@@ -34,21 +34,21 @@ router.get('/risk-scores', authMiddleware, async (req: AuthRequest, res: Respons
     if (conditions.includes('asthma') || conditions.includes('copd')) respiratoryRisk += 40;
 
     const scores = [
-      { 
-        name: 'Cardiovascular Health', 
-        score: Math.min(heartRisk, 100), 
+      {
+        name: 'Cardiovascular Health',
+        score: Math.min(heartRisk, 100),
         status: getStatus(heartRisk),
         recommendations: ["Regular cardio for 30 mins", "Reduce sodium intake", "Monitor blood pressure weekly"]
       },
-      { 
-        name: 'Metabolic Health (Diabetes)', 
-        score: Math.min(diabetesRisk, 100), 
+      {
+        name: 'Metabolic Health (Diabetes)',
+        score: Math.min(diabetesRisk, 100),
         status: getStatus(diabetesRisk),
         recommendations: ["Shift to whole grains", "Limit processed sugars", "Morning walks for 4k steps"]
       },
-      { 
-        name: 'Respiratory Wellness', 
-        score: Math.min(respiratoryRisk, 100), 
+      {
+        name: 'Respiratory Wellness',
+        score: Math.min(respiratoryRisk, 100),
         status: getStatus(respiratoryRisk),
         recommendations: ["Practice deep breathing", "Avoid polluted areas", "Regular steam inhalation"]
       }
@@ -71,7 +71,7 @@ router.get('/preventive-remedies', authMiddleware, async (req: AuthRequest, res:
     const { condition } = req.query;
     // Static preventive data for now
     const remedies: any = {
-      'Diabetes': { 
+      'Diabetes': {
         remedies: ["Bitter gourd (Karela) juice", "Fenugreek seeds (Methi) water", "Cinnamon tea"],
         lifestyle: ["Active lifestyle", "Stress management", "Adequate sleep"]
       },
