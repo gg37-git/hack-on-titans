@@ -116,9 +116,9 @@ export default function AIDocPage() {
         </button>
       </header>
 
-      {/* Chat Area */}
-      <main className="flex-1 overflow-y-auto p-4 space-y-4">
-        <div className="max-w-3xl mx-auto space-y-4">
+      {/* Chat Area (Aerated) */}
+      <main className="flex-1 overflow-y-auto p-6 md:p-10 space-y-10">
+        <div className="max-w-4xl mx-auto space-y-8">
           {/* Welcome Message */}
           <div className="flex gap-3 max-w-[85%]">
             <div className="w-8 h-8 rounded-full bg-purple-100 flex-shrink-0 flex items-center justify-center text-purple-600 border border-purple-200">
@@ -148,18 +148,17 @@ export default function AIDocPage() {
               </div>
             </div>
           ))}
-
           {isLoading && (
-            <div className="flex gap-3 max-w-[85%] animate-pulse">
-              <div className="w-8 h-8 rounded-full bg-purple-100 flex-shrink-0 flex items-center justify-center text-purple-600 border border-purple-200">
-                <Bot size={18} />
+            <div className="flex gap-4 max-w-[85%] animate-pulse">
+              <div className="w-10 h-10 rounded-full bg-purple-100 flex-shrink-0 flex items-center justify-center text-purple-600 border border-purple-200">
+                <Bot size={22} />
               </div>
-              <div className="bg-white border border-neutral-100 rounded-2xl rounded-tl-none p-4 shadow-sm">
-                <Loader2 className="animate-spin text-purple-500" size={18} />
+              <div className="bg-white border border-neutral-100 rounded-2xl rounded-tl-none p-5 shadow-sm">
+                <Loader2 className="animate-spin text-purple-500" size={20} />
               </div>
             </div>
           )}
-          <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} className="h-12" />
         </div>
       </main>
 

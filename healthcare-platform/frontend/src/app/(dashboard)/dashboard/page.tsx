@@ -118,10 +118,10 @@ export default function DashboardPage() {
         </div>
 
         {/* Status & Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-16">
            
-           {/* Sidebar Info */}
-           <div className="lg:col-span-1 space-y-8">
+           {/* Sidebar Info (De-clumped) */}
+           <div className="lg:col-span-1 space-y-12">
               {/* Profile Card */}
               <div className="bg-white border border-slate-200 rounded-[40px] p-8 shadow-sm">
                  <h3 className="font-bold text-slate-900 mb-6 flex justify-between items-center">
@@ -141,13 +141,13 @@ export default function DashboardPage() {
                        <span className="font-bold text-slate-900">{profile?.weight_kg ? `${profile.weight_kg} kg` : '—'}</span>
                     </div>
                  </div>
-                 <button onClick={() => router.push('/profile-setup')} className="w-full mt-8 py-4 bg-slate-900 text-white rounded-[24px] font-bold text-sm hover:bg-slate-800 transition-colors">
-                    Edit Profile
-                 </button>
-              </div>
+                  <button onClick={() => router.push('/profile-setup')} className="w-full mt-10 py-5 bg-slate-900 text-white rounded-[24px] font-black text-sm hover:bg-slate-800 transition-all active:scale-95 shadow-lg">
+                    Manage Profile
+                  </button>
+               </div>
 
-              {/* Conditions & Allergies Quick Access */}
-              <div className="grid grid-cols-2 gap-4">
+               {/* Conditions & Allergies Quick Access (Expanded) */}
+               <div className="grid grid-cols-2 gap-6">
                  <button onClick={() => router.push('/medical-conditions')} className="bg-white border border-slate-200 rounded-[32px] p-6 text-center hover:border-primary-700 transition-all group">
                     <div className="text-2xl mb-2 grayscale group-hover:grayscale-0 transition-all">🩺</div>
                     <p className="text-[10px] uppercase font-black text-slate-400 group-hover:text-primary-700">Conditions</p>
@@ -159,12 +159,11 @@ export default function DashboardPage() {
               </div>
            </div>
 
-           {/* Main Stats Grid */}
-           <div className="lg:col-span-3 flex flex-col gap-12">
-              
-              {/* Active Alerts */}
-              <div className="space-y-4">
-                 <h2 className="text-lg font-black text-slate-900 uppercase tracking-widest pl-2">Active Alerts</h2>
+           {/* Main Stats Grid (De-clumped) */}
+           <div className="lg:col-span-3 flex flex-col gap-16 md:gap-24">
+                            {/* Active Alerts (De-clumped) */}
+               <div className="space-y-6 pb-6">
+                  <h2 className="text-sm font-black text-slate-400 uppercase tracking-[0.3em] pl-2">Active Alerts</h2>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {alerts.length === 0 ? (
                       <div className="bg-white border border-slate-200 rounded-[32px] p-8 flex items-center justify-center gap-4 text-slate-400 italic text-sm md:col-span-2 border-dashed">
@@ -191,11 +190,11 @@ export default function DashboardPage() {
                  </div>
               </div>
 
-              {/* Latest Checkup */}
-              {latestSymptom && (
-                <div className="bg-white border border-slate-200 rounded-[40px] p-8 space-y-6">
-                   <div className="flex justify-between items-center">
-                      <h2 className="text-lg font-black text-slate-900 uppercase tracking-widest">Latest Symptom Check</h2>
+               {/* Latest Checkup (Expanded) */}
+               {latestSymptom && (
+                 <div className="bg-white border border-slate-200 rounded-[40px] p-10 space-y-8 shadow-sm">
+                    <div className="flex justify-between items-center">
+                       <h2 className="text-sm font-black text-slate-400 uppercase tracking-[0.3em]">Latest Insight</h2>
                       <span className="text-xs font-bold text-slate-400">{new Date(latestSymptom.created_at).toLocaleDateString()}</span>
                    </div>
                    <div className="bg-slate-50 rounded-[32px] p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -214,12 +213,12 @@ export default function DashboardPage() {
                 </div>
               )}
 
-              {/* Organized Services Grid */}
-              <div className="space-y-12">
+              {/* Organized Services Grid (De-clumped) */}
+              <div className="space-y-16 md:space-y-24">
                  {serviceGroups.map((group) => (
-                    <div key={group.title} className="space-y-6">
-                       <h2 className="text-base font-black text-slate-800 tracking-[-0.02em] pl-2 border-l-4 border-primary-500 rounded-sm">{group.title}</h2>
-                       <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div key={group.title} className="space-y-8">
+                       <h2 className="text-base font-black text-slate-800 tracking-[-0.02em] pl-2 border-l-4 border-primary-500 rounded-sm italic">{group.title}</h2>
+                       <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-10">
                           {group.items.map((item) => (
                             <button
                               key={item.label}
@@ -240,14 +239,12 @@ export default function DashboardPage() {
                           ))}
                        </div>
                     </div>
-                 ))}
+                  ))}
               </div>
-
+              
+              <div className="h-20"></div> {/* Bottom Buffer for Spacing */}
            </div>
         </div>
-
-
-
     </div>
   );
 }

@@ -64,13 +64,13 @@ export default function HealthHistoryPage() {
   const filteredHistory = filter === 'all' ? history : history.filter(h => h.type === filter);
 
   return (
-    <div className="min-h-screen bg-neutral-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen bg-neutral-50 p-6 md:p-12 lg:p-16">
+      <div className="max-w-4xl mx-auto space-y-16">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-neutral-900">Health History</h1>
-            <p className="text-neutral-500">Your complete record of consultations and symptom checks.</p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+          <div className="space-y-2">
+            <h1 className="text-4xl font-black text-neutral-900 tracking-tight">Health History</h1>
+            <p className="text-neutral-500 font-medium text-lg">Your complete record of consultations and symptom checks.</p>
           </div>
           <div className="flex bg-white rounded-xl p-1 border border-neutral-200">
             {(['all', 'symptom_check', 'appointment'] as const).map(f => (
@@ -101,28 +101,27 @@ export default function HealthHistoryPage() {
           <div className="space-y-4 relative">
              {/* Timeline line */}
              <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-neutral-200 hidden md:block"></div>
-             
-             {filteredHistory.map((h, i) => (
-                <div key={`${h.type}-${h.id}`} className="relative pl-0 md:pl-12 animate-in fade-in slide-in-from-left-4" style={{ animationDelay: `${i * 50}ms` }}>
+                     {filteredHistory.map((h, i) => (
+                <div key={`${h.type}-${h.id}`} className="relative pl-0 md:pl-16 animate-in fade-in slide-in-from-left-4" style={{ animationDelay: `${i * 50}ms` }}>
                   {/* Timeline dot */}
-                  <div className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-4 border-white shadow-sm z-10 hidden md:block ${
+                  <div className={`absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-4 border-white shadow-lg z-10 hidden md:block ${
                     h.type === 'symptom_check' ? 'bg-primary-500' : 'bg-green-500'
                   }`}></div>
-
-                  <div className="bg-white border border-neutral-200 rounded-[32px] p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-between group cursor-pointer">
-                    <div className="flex gap-5 items-center">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl ${
+ 
+                  <div className="bg-white border border-neutral-200 rounded-[40px] p-8 md:p-10 shadow-sm hover:shadow-xl transition-all flex items-center justify-between group cursor-pointer">
+                    <div className="flex gap-8 items-center">
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl ${
                         h.type === 'symptom_check' ? 'bg-primary-50 text-primary-700' : 'bg-green-50 text-green-700'
                       }`}>
-                        {h.type === 'symptom_check' ? <Thermometer size={28} /> : <Calendar size={28} />}
+                        {h.type === 'symptom_check' ? <Thermometer size={32} /> : <Calendar size={32} />}
                       </div>
                       <div>
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-3 mb-2">
                           <span className="text-[10px] uppercase font-black tracking-widest text-neutral-400">
                              {new Date(h.date).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}
                           </span>
                           {h.sentiment && (
-                            <span className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                            <span className={`text-[10px] uppercase font-black px-3 py-1 rounded-full ${
                               h.sentiment === 'high' ? 'bg-red-50 text-red-600' : 
                               h.sentiment === 'medium' ? 'bg-orange-50 text-orange-600' : 
                               'bg-green-50 text-green-600'
@@ -131,21 +130,23 @@ export default function HealthHistoryPage() {
                             </span>
                           )}
                         </div>
-                        <h3 className="font-bold text-neutral-900 text-lg leading-tight group-hover:text-primary-700 transition-colors">{h.title}</h3>
-                        <p className="text-neutral-500 text-sm mt-0.5">{h.subtitle}</p>
+                        <h3 className="font-black text-neutral-900 text-xl leading-tight group-hover:text-primary-700 transition-colors tracking-tight">{h.title}</h3>
+                        <p className="text-neutral-500 font-medium text-sm mt-1">{h.subtitle}</p>
                       </div>
                     </div>
-                    <div className="flex flex-col items-end gap-2">
+                    <div className="flex flex-col items-end gap-3">
                        {h.status && (
-                         <span className="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-lg border border-green-200">
+                         <span className="bg-green-100 text-green-700 text-[10px] font-black px-3 py-1 rounded-xl border border-green-200 uppercase tracking-widest">
                            {h.status}
                          </span>
                        )}
-                       <ChevronRight size={20} className="text-neutral-300 group-hover:text-primary-700 transition-transform group-hover:translate-x-1" />
+                       <div className="w-10 h-10 rounded-full bg-neutral-50 flex items-center justify-center border border-neutral-100 text-neutral-300 group-hover:text-primary-700 group-hover:border-primary-200 transition-all group-hover:translate-x-1">
+                          <ChevronRight size={20} />
+                       </div>
                     </div>
                   </div>
                 </div>
-             ))}
+              ))}
           </div>
         )}
 

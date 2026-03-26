@@ -139,8 +139,8 @@ export default function DoctorsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="min-h-screen bg-[#f8fafc] p-6 md:p-12 lg:p-16">
+      <div className="max-w-7xl mx-auto space-y-16 animate-in fade-in duration-500">
         
         {/* Header & Hero Stats */}
         <div className="flex flex-col lg:flex-row justify-between gap-6">
@@ -164,8 +164,8 @@ export default function DoctorsPage() {
           </div>
         </div>
 
-        {/* Search & Hierarchical Filters */}
-        <div className="bg-white rounded-3xl p-4 shadow-sm border border-slate-100 mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Search & Hierarchical Filters (Aerated) */}
+        <div className="bg-white rounded-[40px] p-6 md:p-8 shadow-sm border border-slate-100 mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="relative lg:col-span-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
             <input
@@ -213,8 +213,8 @@ export default function DoctorsPage() {
             ))}
           </div>
         ) : activeTab === 'doctors' ? (
-          /* Doctors View */
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          /* Doctors View (De-clumped) */
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
             {doctors.map((d) => (
               <div key={d.id} className="bg-white border text-left border-slate-200 rounded-[32px] p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
                 <div>
