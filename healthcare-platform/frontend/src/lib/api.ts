@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Globally Exposing Backend via Localtunnel
-const API_BASE_URL = 'https://stupid-horses-buy.loca.lt/api';
+// Fallback to strict local network routing, but keep tunnel header active in case of proxy use
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
