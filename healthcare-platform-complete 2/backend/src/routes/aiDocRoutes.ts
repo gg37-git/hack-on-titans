@@ -1,0 +1,171 @@
+import { Router, Response } from 'express';
+import pool from '../config/database';
+import { authMiddleware, AuthRequest } from '../middleware/authMiddleware';
+import axios from 'axios';
+
+const router = Router();
+
+router.post('/', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const { message, conversation_history } = req.body;
+    if (!message) return res.status(400).json({ error: 'Message required' });
+
+    // Save user message
+    await pool.query(
+      'INSERT INTO chat_history (user_id, role, message) VALUES ($1, $2, $3)',
+      [req.userId, 'user', message]
+    );
+
+    let reply = '';
+    const openaiKey = process.env.OPENAI_API_KEY;
+
+    if (openaiKey && openaiKey !== 'your_openai_key_for_ai_doc') {
+      try {
+        const messages = [
+          {
+            role: 'system',
+            content: `You are the CuraLink AI Clinical Assistant, a professional diagnostic support system. 
+Your goal is to provide high-quality, structured medical information and guidance.
+
+Operational Protocol:
+1. Reasoning Framework: Use the SOAP (Subjective, Objective, Assessment, Plan) framework for internal reasoning.
+2. Clinical Tone: Maintain a professional, calm, and authoritative yet empathetic medical tone.
+3. Clarity: Explicitly state that you are an AI assistant and not a replacement for a human physician.
+4. Emergency Check: If symptoms suggest a life-threatening condition (e.g., chest pain, difficulty breathing, severe bleeding), immediately advise seeking emergency care.
+5. Actionable Advice: Provide practical, evidence-based recommendations for symptom management and follow-up.
+
+Structure your responses clearly with headings when appropriate.`
+          },
+          ...(conversation_history || []).slice(-10),
+          { role: 'user', content: message }
+        ];
+
+        const aiRes = await axios.post(
+          'https://api.openai.com/v1/chat/completions',
+          { model: 'gpt-3.5-turbo', messages, temperature: 0.5, max_tokens: 800 },
+          { headers: { Authorization: `Bearer ${openaiKey}` } }
+        );
+        reply = aiRes.data.choices[0].message.content;
+      } catch {
+        reply = getMockReply(message);
+      }
+    } else {
+      reply = getMockReply(message);
+    }
+
+    // Save AI reply
+    await pool.query(
+      'INSERT INTO chat_history (user_id, role, message) VALUES ($1, $2, $3)',
+      [req.userId, 'assistant', reply]
+    );
+
+    res.json({ reply });
+  } catch (err) {
+    res.status(500).json({ error: 'Chat failed' });
+  }
+});
+
+// Generate a Clinical Summary Report
+router.post('/generate-report', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM chat_history WHERE user_id=$1 ORDER BY timestamp DESC LIMIT 20',
+      [req.userId]
+    );
+    const chatLogs = result.rows.reverse();
+    
+    if (chatLogs.length === 0) return res.status(400).json({ error: 'No chat history found' });
+
+    const openaiKey = process.env.OPENAI_API_KEY;
+    let summary = '';
+
+    if (openaiKey && openaiKey !== 'your_openai_key_for_ai_doc') {
+      try {
+        const aiRes = await axios.post(
+          'https://api.openai.com/v1/chat/completions',
+          {
+            model: 'gpt-3.5-turbo',
+            messages: [
+              {
+                role: 'system',
+                content: 'You are a clinical scribe. Summarize the following patient-AI conversation into a structured Clinical Summary Report (SOAP format: Subjective, Objective, Assessment, Plan). Keep it professional and concise.'
+              },
+              { role: 'user', content: chatLogs.map(m => `${m.role.toUpperCase()}: ${m.message}`).join('\n') }
+            ]
+          },
+          { headers: { Authorization: `Bearer ${openaiKey}` } }
+        );
+        summary = aiRes.data.choices[0].message.content;
+      } catch {
+        summary = "Summary generation failed. Please review your chat history directly.";
+      }
+    } else {
+      summary = "AI Scribe service unavailable. Manual summary recommended based on recent discussion of symptoms.";
+    }
+
+    res.json({ summary });
+  } catch {
+    res.status(500).json({ error: 'Failed to generate report' });
+  }
+});
+
+// Email Clinical Report to User
+router.post('/email-report', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const { summary } = req.body;
+    if (!summary) return res.status(400).json({ error: 'Summary required' });
+
+    const { sendClinicalAlert } = require('../utils/EmailService');
+    const emailRes = await sendClinicalAlert(
+      'Your AI Clinical Assistant Report',
+      `<h3>Clinical Summary Report</h3>
+       <pre style="white-space: pre-wrap; font-family: inherit; background: #f9fafb; padding: 15px; border-radius: 8px;">${summary}</pre>
+       <p style="color: #ef4444; font-weight: bold; font-size: 12px;">DISCLAIMER: This report is generated by AI and must be reviewed by a licensed healthcare professional before making any medical decisions.</p>`
+    );
+
+    res.json(emailRes);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to email report' });
+  }
+});
+
+router.get('/history', authMiddleware, async (req: AuthRequest, res: Response) => {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM chat_history WHERE user_id=$1 ORDER BY timestamp ASC LIMIT 50',
+      [req.userId]
+    );
+    res.json(result.rows);
+  } catch {
+    res.status(500).json({ error: 'Failed to fetch history' });
+  }
+});
+
+function getMockReply(message: string): string {
+  const lower = message.toLowerCase();
+  
+  const symptoms = [
+    { keys: ['fever', 'temp', 'hot'], reply: "### Clinical Assessment (Preliminary)\n\n**Subjective:** Patient reports elevated body temperature.\n**Analysis:** A fever (above 100.4°F/38°C) typically indicates the body is fighting an infection. \n**Recommendation:** Monitor temperature every 4 hours, maintain high fluid intake, and rest. If temperature exceeds 103°F or is accompanied by a stiff neck, seek urgent medical evaluation." },
+    { keys: ['headache', 'migraine', 'head'], reply: "### Clinical Assessment (Preliminary)\n\n**Subjective:** Reports of cephalalgia (headache).\n**Analysis:** Potential causes include tension, dehydration, or vascular issues. \n**Recommendation:** Rest in a low-stimulus environment and hydrate. Seek immediate care if the pain is sudden and severe ('thunderclap' headache) or if you experience vision changes." },
+    { keys: ['cold', 'cough', 'sneeze', 'flu'], reply: "### Clinical Assessment (Preliminary)\n\n**Subjective:** Upper respiratory symptoms noted.\n**Analysis:** Likely viral etiology (common cold or influenza). \n**Recommendation:** Supportive care including steam inhalation and hydration. If you develop dyspnea (shortness of breath) or high persistent fever, a clinical consult is required." },
+    { keys: ['stomach', 'belly', 'digestion', 'nausea'], reply: "### Clinical Assessment (Preliminary)\n\n**Subjective:** Gastrointestinal discomfort reported.\n**Analysis:** Possible causes include dyspepsia, viral gastritis, or food intolerance. \n**Recommendation:** Adopt a soft diet (BRAT protocol). Consult a physician if pain is localized to the lower right quadrant or accompanied by persistent vomiting." },
+    { keys: ['skin', 'rash', 'itch'], reply: "### Clinical Assessment (Preliminary)\n\n**Subjective:** Dermatological irritation.\n**Analysis:** Potential allergic reaction or localized inflammatory response.\n**Recommendation:** Avoid topical irritants and apply cool compresses. **WARNING:** If you experience facial swelling or difficulty swallowing, this is a medical emergency—call services immediately." },
+    { keys: ['tired', 'fatigue', 'sleepy', 'weak'], reply: "### Clinical Assessment (Preliminary)\n\n**Subjective:** Chronic or acute fatigue reported.\n**Analysis:** Multifactorial etiology (sleep quality, nutritional deficit, or stress).\n**Recommendation:** Review your recent 'Health Analytics' graph for sleep trends. Persistent fatigue (over 2 weeks) warrants a blood panel for anemia or thyroid function." },
+    { keys: ['pain', 'hurt', 'ache'], reply: "### Clinical Assessment (Preliminary)\n\n**Subjective:** Reports of physical pain.\n**Analysis:** Pain is a significant clinical indicator that requires localization.\n**Recommendation:** Please describe the pain's character (sharp, dull, radiating) and its location. High-intensity pain should always be evaluated by a healthcare professional in person." }
+  ];
+
+  for (const group of symptoms) {
+    if (group.keys.some(k => lower.includes(k))) return group.reply;
+  }
+
+  const clinicalOpeners = [
+    "I have analyzed your input. To provide a more precise clinical assessment, could you specify when these symptoms first manifested?",
+    "Your report has been noted in the context of your health history. Are there any secondary symptoms associated with this, such as nausea or dizziness?",
+    "Understood. For a more comprehensive SOAP assessment, I need to know if you've recently increased your physical exertion or changed your dietary habits.",
+    "Data point recorded. From a clinical perspective, it would be helpful to know if there is any family history related to these specific symptoms."
+  ];
+
+  return clinicalOpeners[Math.floor(Math.random() * clinicalOpeners.length)];
+}
+
+export default router;

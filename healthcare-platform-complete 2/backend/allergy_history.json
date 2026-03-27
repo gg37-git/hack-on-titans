@@ -1,0 +1,234 @@
+[
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:08.734Z",
+    "_id": "8bhro"
+  },
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:09.947Z",
+    "_id": "kgt646"
+  },
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:11.363Z",
+    "_id": "6tsqos"
+  },
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:13.563Z",
+    "_id": "w1dajh"
+  },
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:14.263Z",
+    "_id": "h9avtr"
+  },
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:14.779Z",
+    "_id": "hrewy"
+  },
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:15.447Z",
+    "_id": "e94w5"
+  },
+  {
+    "userId": 4,
+    "inputs": {
+      "known_allergies": [
+        "penicillin"
+      ],
+      "prescribed_medicines": [
+        "Amoxicillin"
+      ],
+      "food_intake": [
+        "salad"
+      ],
+      "age": 30,
+      "season": "spring",
+      "existing_conditions": [
+        "none"
+      ]
+    },
+    "result": {
+      "probability": 0.65,
+      "risk_level": "High",
+      "triggered_by": [
+        "Amoxicillin/Augmentin conflicts with Penicillin allergy"
+      ],
+      "recommendation": "Warning: Significant risk detected. Please consult your doctor before consuming these items."
+    },
+    "timestamp": "2026-03-26T21:30:15.863Z",
+    "_id": "hxnlce"
+  }
+]

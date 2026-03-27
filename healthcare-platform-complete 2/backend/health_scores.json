@@ -1,0 +1,94 @@
+[
+  {
+    "userId": 4,
+    "score": 92,
+    "date": "2026-03-21T00:26:22.880Z",
+    "breakdown": {
+      "bmi_score": 91,
+      "bp_score": 83,
+      "sleep_score": 83,
+      "exercise_score": 90,
+      "stress_score": 66
+    },
+    "_id": "jueq8d"
+  },
+  {
+    "userId": 4,
+    "score": 78,
+    "date": "2026-03-22T00:26:22.880Z",
+    "breakdown": {
+      "bmi_score": 71,
+      "bp_score": 60,
+      "sleep_score": 85,
+      "exercise_score": 51,
+      "stress_score": 81
+    },
+    "_id": "slm0wl"
+  },
+  {
+    "userId": 4,
+    "score": 78,
+    "date": "2026-03-23T00:26:22.880Z",
+    "breakdown": {
+      "bmi_score": 93,
+      "bp_score": 94,
+      "sleep_score": 77,
+      "exercise_score": 84,
+      "stress_score": 93
+    },
+    "_id": "gaif5"
+  },
+  {
+    "userId": 4,
+    "score": 76,
+    "date": "2026-03-24T00:26:22.880Z",
+    "breakdown": {
+      "bmi_score": 73,
+      "bp_score": 67,
+      "sleep_score": 89,
+      "exercise_score": 70,
+      "stress_score": 77
+    },
+    "_id": "nit65i"
+  },
+  {
+    "userId": 4,
+    "score": 85,
+    "date": "2026-03-25T00:26:22.880Z",
+    "breakdown": {
+      "bmi_score": 80,
+      "bp_score": 85,
+      "sleep_score": 81,
+      "exercise_score": 93,
+      "stress_score": 87
+    },
+    "_id": "1p25k"
+  },
+  {
+    "userId": 4,
+    "score": 82,
+    "date": "2026-03-26T00:26:22.880Z",
+    "breakdown": {
+      "bmi_score": 88,
+      "bp_score": 82,
+      "sleep_score": 74,
+      "exercise_score": 51,
+      "stress_score": 62
+    },
+    "_id": "t4w4x"
+  },
+  {
+    "userId": 4,
+    "score": 78,
+    "breakdown": {
+      "bmi_score": 100,
+      "bp_score": 100,
+      "sleep_score": 100,
+      "exercise_score": 80,
+      "stress_score": 10
+    },
+    "date": "2026-03-27T00:28:25.665Z",
+    "isMock": false,
+    "_id": "s6wfzf"
+  }
+]
